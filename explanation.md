@@ -45,7 +45,7 @@ If we just used the raw staircase sum in the exponent, the steering wheel would 
 
 Now, every time the staircase steps up by 1, the angle of the steering wheel changes by exactly $\frac{2\pi}{n}$. This perfectly matches the precise exterior angle required for a regular $n$-gon. By the end of the sum, the total accumulated angle is exactly $2\pi$.
 
-Here's an example for how this should work for a square ($n = 4$), evaluated over the range $y = 0$ to $y = n$:
+Here's an example for how this should work for a square ($n = 4$), evaluated over the range $y = 0$ to $y = n$. Note that this describes the ideal case where $\theta$ is very high (sharp corners). For lower $\theta$, each sigmoid only reaches its midpoint at $y = k$, so the turns smear across about half a second before and after, rounding the corners:
 
 * **0 to 1 seconds:** No sigmoids have triggered. The sum is 0, the angle is 0. The car drives straight East for 1 second, drawing the bottom edge.
 * **At 1 second:** The first sigmoid ($k=1$) triggers. The raw sum jumps to 1. The normalized angle jumps to $\frac{2\pi}{4}$ (90 degrees). The car turns left to face North.
