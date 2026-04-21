@@ -146,6 +146,23 @@ input[type="range"]::-webkit-slider-thumb {
 /* ---------- Responsive ---------- */
 
 @media (max-width: 800px) {
+  header {
+    padding: 24px 16px 8px;
+  }
+
+  header h1 {
+    font-size: 1.4rem;
+  }
+
+  header p {
+    font-size: 0.88rem;
+  }
+
+  .hero-equation {
+    margin-top: 18px;
+    font-size: 1.3rem;
+  }
+
   .top-row {
     flex-direction: column;
     gap: 20px;
@@ -154,10 +171,15 @@ input[type="range"]::-webkit-slider-thumb {
   .controls-card {
     flex: none;
     width: 100%;
+    align-self: auto;
   }
 
   .app {
     padding: 16px;
     gap: 20px;
+  }
+
+  .explanation-panel {
+    padding: 20px;
   }
 }
