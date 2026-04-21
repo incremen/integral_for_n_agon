@@ -2,22 +2,22 @@
 
 The expression we are visualizing is a complex line integral used to parametrically draw a regular $n$-gon:
 
-$$z(X) = \int_0^X e^{i \frac{2\pi}{n} \sum_{k=1}^n \frac{1}{1 + e^{-(x-k)\sigma}}} dx$$
+$$z(X) = \int_0^X e^{i \frac{2\pi}{n} \sum_{k=1}^n \frac{1}{1 + e^{-(x-k)\theta}}} dx$$
 
 ### 1. The Engine: Euler's Identity and the Complex Plane
 The foundation of this expression relies on **Euler's formula**:
-$$e^{i\theta} = \cos(\theta) + i\sin(\theta)$$
+$$e^{i\varphi} = \cos(\varphi) + i\sin(\varphi)$$
 
-In the complex plane, a number $z = a + bi$ functions exactly like Cartesian coordinates $(x, y)$. The real part ($\cos(\theta)$) sits on the horizontal axis and the imaginary part ($\sin(\theta)$) sits on the vertical axis.
+In the complex plane, a number $z = a + bi$ functions exactly like Cartesian coordinates $(x, y)$. The real part ($\cos(\varphi)$) sits on the horizontal axis and the imaginary part ($\sin(\varphi)$) sits on the vertical axis.
 
 The **magnitude** is the length of the vector from the origin, calculated using the Pythagorean theorem: $|z| = \sqrt{a^2 + b^2}$.
 For our expression, the magnitude is:
-$$\sqrt{\cos^2(\theta) + \sin^2(\theta)} = \sqrt{1} = 1$$
+$$\sqrt{\cos^2(\varphi) + \sin^2(\varphi)} = \sqrt{1} = 1$$
 
-Because this always equals 1, the magnitude of $e^{i\theta}$ is strictly 1, regardless of what $\theta$ is. 
+Because this always equals 1, the magnitude of $e^{i\varphi}$ is strictly 1, regardless of what $\varphi$ is.
 
 ### 2. The Steering Wheel: Direction and Turning
-When we integrate this function with respect to $x$ (treating $x$ as time), the "pen" drawing the shape moves at a constant velocity of 1 unit per second. The integral acts as an accumulator of movement. Since the speed cannot change, the only thing that dictates the shape of the path is the angle $\theta$ in the exponent.
+When we integrate this function with respect to $x$ (treating $x$ as time), the "pen" drawing the shape moves at a constant velocity of 1 unit per second. The integral acts as an accumulator of movement. Since the speed cannot change, the only thing that dictates the shape of the path is the angle $\varphi$ in the exponent.
 
 Think of the integration process like driving a car. The exponent represents the exact angle of your steering wheel at any given time $x$. To determine whether the path turns left or right, we look at the rate of change of the exponent as time moves forward:
 
@@ -35,12 +35,12 @@ It is a continuous curve with two critical limits:
 * $\lim_{x \to -\infty} f(x) = 0$
 * $\lim_{x \to \infty} f(x) = 1$
 
-By modifying the input to $f((x-k)\sigma)$, we introduce two parameters:
+By modifying the input to $f((x-k)\theta)$, we introduce two parameters:
 * **$k$ (The Offset):** This shifts the function to the right along the x-axis. The transition from 0 to 1 will happen exactly when time $x$ crosses the integer $k$.
-* **$\sigma$ (Sharpness):** This multiplier determines how abruptly the transition happens. A low $\sigma$ creates a slow, stretched-out curve (rounded corners). A high $\sigma$ forces the transition to happen almost instantly (sharp corners).
+* **$\theta$ (Sharpness):** This multiplier determines how abruptly the transition happens. A low $\theta$ creates a slow, stretched-out curve (rounded corners). A high $\theta$ forces the transition to happen almost instantly (sharp corners).
 
 To create multiple turns, we sum $n$ of these shifted sigmoids together:
-$$\sum_{k=1}^n f((x-k)\sigma)$$
+$$\sum_{k=1}^n f((x-k)\theta)$$
 
 Because each sigmoid flips from 0 to 1 at a different integer $k$, adding them together creates a continuous, **smooth staircase**. At $x=0$, the sum is 0. As time progresses, the total value steps up by 1 at every integer, until it reaches a maximum value of exactly $n$. Because the sum only goes up, the "car" only ever turns left.
 
@@ -72,10 +72,10 @@ Because this integral is a composition of sigmoids inside a complex exponential,
 Euler's method approximates the accumulated area by breaking the continuous function into small, distinct steps:
 1.  **Initialize:** Start at position $z_0 = (0, 0)$.
 2.  **Iterate:** Choose a tiny step size for time, $dx$ (e.g., $0.01$).
-3.  **Evaluate:** At the current time $x$, calculate the exact angle $\theta$ using the formula.
+3.  **Evaluate:** At the current time $x$, calculate the exact angle $\varphi$ using the formula.
 4.  **Accumulate:** Multiply the current vector by the step size to get the distance traveled in that micro-second, and add it to your position:
-    $x_{new} = x_{old} + \cos(\theta) \cdot dx$
-    $y_{new} = y_{old} + \sin(\theta) \cdot dx$
+    $x_{new} = x_{old} + \cos(\varphi) \cdot dx$
+    $y_{new} = y_{old} + \sin(\varphi) \cdot dx$
 5.  **Repeat:** Increment $x$ by $dx$ and repeat until $x = n$.
 
 This blind, iterative vector addition draws the polygon perfectly. The computer calculates no vertices and uses no hardcoded geometry; the shape emerges entirely from the math.
