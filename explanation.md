@@ -45,8 +45,7 @@ If we just used the raw staircase sum in the exponent, the steering wheel would 
 
 Now, every time the staircase steps up by 1, the angle of the steering wheel changes by exactly $\frac{2\pi}{n}$. This perfectly matches the precise exterior angle required for a regular $n$-gon. By the end of the sum, the total accumulated angle is exactly $2\pi$.
 
-### 4. The Path: The Trip from 0 to $n$
-The integral is evaluated over the range $x = 0$ to $x = n$. Here is the exact timeline mapped out for a square ($n = 4$):
+Here's an example for how this should work for a square ($n = 4$), evaluated over the range $x = 0$ to $x = n$:
 
 * **0 to 1 seconds:** No sigmoids have triggered. The sum is 0, the angle is 0. The car drives straight East for 1 second, drawing the bottom edge.
 * **At 1 second:** The first sigmoid ($k=1$) triggers. The raw sum jumps to 1. The normalized angle jumps to $\frac{2\pi}{4}$ (90 degrees). The car turns left to face North.
@@ -57,7 +56,7 @@ The integral is evaluated over the range $x = 0$ to $x = n$. Here is the exact t
 * **3 to 4 seconds:** The car drives South for 1 second, drawing the left edge and returning exactly to the origin.
 * **At exactly 4 seconds:** The car is back at the start. The fourth sigmoid ($k=4$) triggers. The sum jumps to 4. The angle jumps to $\frac{8\pi}{4}$ (360 degrees, or $2\pi$). The car turns left one final time to face East, resetting to its exact starting orientation.
 
-### 5. Numerical Rendering (Euler's Method)
+### 4. Numerical Rendering (Euler's Method)
 Because this integral is a composition of sigmoids inside a complex exponential, it does not have a standard closed-form solution. To evaluate it (and draw it with code), we discretize it using **Euler's Method**.
 
 Euler's method approximates the accumulated area by breaking the continuous function into small, distinct steps:
@@ -71,7 +70,7 @@ Euler's method approximates the accumulated area by breaking the continuous func
 
 This blind, iterative vector addition draws the polygon perfectly. The computer calculates no vertices and uses no hardcoded geometry; the shape emerges entirely from the math.
 
-### 6. Bounding the Growth: Velocity vs. Position
+### 5. Bounding the Growth: Velocity vs. Position
 If you evaluate the base integral, the polygon grows larger as $n$ increases. Why? Because the magnitude of $e^{i\varphi(x)}$ is exactly 1. This represents the **velocity** of the pen.
 
 If you drive at a constant speed of 1 unit/sec for $n$ seconds, you draw a shape with a total perimeter of exactly $n$. This means every individual side has a length of exactly 1. A regular polygon with a fixed side length of 1 must expand its radius ($R \approx \frac{n}{2\pi}$) to physically fit more sides.
