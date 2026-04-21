@@ -13,9 +13,11 @@ function draw() {
   thetaVal.textContent = theta;
 
   const speedScale = constantRadius ? 2 * Math.sin(Math.PI / n) : 1;
-  const points = computeIntegralPath(n, theta, 0.01, speedScale);
+  const dx = 0.01;
+  const points = computeIntegralPath(n, theta, dx, speedScale);
   const xs = points.map((p) => p.x);
   const ys = points.map((p) => p.y);
+  const ts = points.map((_, i) => i * dx);
 
   const box = getBoundingBox(points);
   const halfSpan = Math.max(box.width, box.height) / 2;
@@ -28,8 +30,10 @@ function draw() {
   const trace = {
     x: xs,
     y: ys,
+    customdata: ts,
     type: "scatter",
     mode: "lines",
+    hovertemplate: "x = %{customdata:.2f}<br>(%{x:.3f}, %{y:.3f})<extra></extra>",
   };
 
   const layout = {
