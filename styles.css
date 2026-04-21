@@ -30,13 +30,20 @@ header p {
 
 .app {
   display: flex;
+  flex-direction: column;
   gap: 32px;
   max-width: 1200px;
   margin: 0 auto;
   padding: 16px 32px 48px;
 }
 
-/* ---------- Canvas column ---------- */
+/* ---------- Top row: canvas + controls ---------- */
+
+.top-row {
+  display: flex;
+  gap: 32px;
+  align-items: flex-start;
+}
 
 .canvas-col {
   flex: 1 1 0;
@@ -52,14 +59,8 @@ canvas {
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
 }
 
-/* ---------- Controls column ---------- */
-
-.controls-col {
-  flex: 1 1 0;
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  max-width: 480px;
+.controls-card {
+  flex: 0 0 320px;
 }
 
 .card {
@@ -137,13 +138,18 @@ input[type="range"]::-webkit-slider-thumb {
 /* ---------- Responsive ---------- */
 
 @media (max-width: 800px) {
-  .app {
+  .top-row {
     flex-direction: column;
-    padding: 16px;
     gap: 20px;
   }
 
-  .controls-col {
-    max-width: 100%;
+  .controls-card {
+    flex: none;
+    width: 100%;
+  }
+
+  .app {
+    padding: 16px;
+    gap: 20px;
   }
 }
