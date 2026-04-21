@@ -1,6 +1,4 @@
-# The Integral $n$-gon
-
-The expression we are visualizing is a complex line integral used to parametrically draw a regular $n$-gon:
+We'll skip the $2 \sin\left(\frac{\pi}{n}\right)$ part for now and get back to it at the end. Let's look at:
 
 $$z(X) = \int_0^X e^{i \frac{2\pi}{n} \sum_{k=1}^n \frac{1}{1 + e^{-(x-k)\theta}}} dx$$
 
