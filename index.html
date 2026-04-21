@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Complex Integral n-gon</title>
+<style>
+  body { 
+    font-family: sans-serif; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    background-color: #f8f9fa; 
+    margin: 0; 
+    padding: 30px; 
+  }
+  canvas { 
+    background: white; 
+    border: 1px solid #ced4da; 
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1); 
+  }
+  .controls { 
+    margin-top: 20px; 
+    display: flex; 
+    gap: 30px; 
+    background: white; 
+    padding: 20px; 
+    border-radius: 8px; 
+    border: 1px solid #ced4da;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  }
+  .control-group { 
+    display: flex; 
+    flex-direction: column; 
+    min-width: 150px;
+  }
+  label {
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #343a40;
+  }
+  input[type=range] {
+    width: 100%;
+  }
+</style>
+</head>
+<body>
+
+<canvas id="canvas" width="600" height="600"></canvas>
+
+<div class="controls">
+  <div class="control-group">
+    <label for="n-slider">n (Sides): <span id="n-val">6</span></label>
+    <input type="range" id="n-slider" min="3" max="15" value="6">
+  </div>
+  <div class="control-group">
+    <label for="theta-slider">&theta; (Sharpness): <span id="theta-val">15</span></label>
+    <input type="range" id="theta-slider" min="2" max="50" value="15">
+  </div>
+</div>
+
+<script>
+  const canvas = document.getElementById('canvas');
+  const ctx = canvas.getContext('2d');
+  const nSlider = document.getElementById('n-slider');
+  const thetaSlider = document.getElementById('theta-slider');
+  const nVal = document.getElementById('n-val');
+  const thetaVal = document.getElementById('theta-val');
+
+  // Logistic sigmoid function
+  function sigmoid(z) {
+    return 1 / (1 + Math.exp(-z));
+  }
+
+  function draw() {
+    const n = parseInt(nSlider.value);
+    const theta = parseInt(thetaSlider.value);
+    nVal.textContent = n;
+    thetaVal.textContent = theta;
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    let pts = [];
+    let r = 0, i = 0; // Real and imaginary parts
+    const dt = 0.01;  // Integration step size
+    const maxT = n + 1; // Integrate slightly past n to fully close the shape
+
+    // Numerical integration of the complex function
+    for (let x = 0; x <= maxT; x += dt) {
+      let sum = 0;
+      for (let k = 1; k <= n; k++) {
+        sum += sigmoid(theta * (x - k));
+      }
+      
+      // Calculate the exponent phase
+      let phase = (2 * Math.PI / n) * sum;
+      
+      // Euler method: z(x + dt) = z(x) + e^(i * phase) * dt
+      r += Math.cos(phase) * dt;
+      i += Math.sin(phase) * dt;
+      pts.push({ x: r, y: i });
+    }
+
+    // Find bounding box for auto-scaling and centering
+    let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+    for (let p of pts) {
+      if (p.x < minX) minX = p.x;
+      if (p.x > maxX) maxX = p.x;
+      if (p.y < minY) minY = p.y;
+      if (p.y > maxY) maxY = p.y;
+    }
+
+    const padding = 50;
+    const width = maxX - minX;
+    const height = maxY - minY;
+    
+    // Maintain aspect ratio
+    const scaleX = (canvas.width - 2 * padding) / width;
+    const scaleY = (canvas.height - 2 * padding) / height;
+    const scale = Math.min(scaleX, scaleY);
+
+    const cx = (minX + maxX) / 2;
+    const cy = (minY + maxY) / 2;
+
+    // Draw the curve
+    ctx.beginPath();
+    ctx.strokeStyle = '#2563eb';
+    ctx.lineWidth = 3;
+    ctx.lineJoin = 'round';
+    ctx.lineCap = 'round';
+
+    for (let j = 0; j < pts.length; j++) {
+      // Map math coordinates to canvas pixels (y is inverted in canvas)
+      const px = canvas.width / 2 + (pts[j].x - cx) * scale;
+      const py = canvas.height / 2 - (pts[j].y - cy) * scale;
+
+      if (j === 0) {
+        ctx.moveTo(px, py);
+      } else {
+        ctx.lineTo(px, py);
+      }
+    }
+    ctx.stroke();
+  }
+
+  // Add event listeners for interactivity
+  nSlider.addEventListener('input', draw);
+  thetaSlider.addEventListener('input', draw);
+  
+  // Initial draw
+  draw();
+</script>
+</body>
+</html>
