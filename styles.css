@@ -63,6 +63,16 @@ header p {
   position: relative;
 }
 
+#plot {
+  width: 100%;
+  aspect-ratio: 1;
+  max-width: 600px;
+  background: #fff;
+  border: 1px solid #d2d2d7;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+}
+
 .tooltip {
   position: absolute;
   pointer-events: none;
@@ -150,6 +160,26 @@ input[type="range"]::-webkit-slider-thumb {
   cursor: pointer;
   border: 2px solid #fff;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+.toggle-group {
+  margin-top: 18px;
+}
+
+.toggle-group label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.toggle-group input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: #2563eb;
+  cursor: pointer;
 }
 
 /* Explanation panel (zero-md) */

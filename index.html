@@ -39,6 +39,12 @@
         <label>$\theta$ (Sharpness) <span id="theta-val">15</span></label>
         <input type="range" id="theta-slider" min="0" max="300" step="1" value="15">
       </div>
+      <div class="toggle-group">
+        <label>
+          <input type="checkbox" id="radius-toggle" checked>
+          Constant Radius (R = 1)
+        </label>
+      </div>
     </div>
   </section>
 
@@ -58,10 +64,9 @@
   </p>
 
   <section class="explanation-panel">
-    <zero-md src="explanation.md" no-auto-classes>
-      <template>
+    <zero-md src="explanation.md">
+      <template data-merge="append">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@5/github-markdown-light.css">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
         <style>
           .markdown-body {
             background: transparent;

@@ -2,7 +2,7 @@ function sigmoid(z) {
   return 1 / (1 + Math.exp(-z));
 }
 
-function computeIntegralPath(n, theta, dx = 0.01) {
+function computeIntegralPath(n, theta, dx = 0.01, speedScale = 1) {
   const points = [];
   let real = 0;
   let imag = 0;
@@ -15,8 +15,8 @@ function computeIntegralPath(n, theta, dx = 0.01) {
     }
 
     const phase = (2 * Math.PI / n) * sum;
-    real += Math.cos(phase) * dx;
-    imag += Math.sin(phase) * dx;
+    real += speedScale * Math.cos(phase) * dx;
+    imag += speedScale * Math.sin(phase) * dx;
     points.push({ x: real, y: imag });
   }
 

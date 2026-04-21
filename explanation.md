@@ -79,3 +79,16 @@ Euler's method approximates the accumulated area by breaking the continuous func
 5.  **Repeat:** Increment $x$ by $dx$ and repeat until $x = n$.
 
 This blind, iterative vector addition draws the polygon perfectly. The computer calculates no vertices and uses no hardcoded geometry; the shape emerges entirely from the math.
+
+### 7. Bounding the Growth: Velocity vs. Position
+If you evaluate the base integral, the polygon grows larger as $n$ increases. Why? Because the magnitude of $e^{i\varphi(x)}$ is exactly 1. This represents the **velocity** of the pen.
+
+If you drive at a constant speed of 1 unit/sec for $n$ seconds, you draw a shape with a total perimeter of exactly $n$. This means every individual side has a length of exactly 1. A regular polygon with a fixed side length of 1 must expand its radius ($R \approx \frac{n}{2\pi}$) to physically fit more sides.
+
+To force the shape to maintain a constant circumradius of $R=1$ regardless of $n$, we must change the speed of the pen. The exact side length $s$ of a unit $n$-gon is defined by trigonometry:
+$$s = 2 \sin\left(\frac{\pi}{n}\right)$$
+
+By multiplying our integrand by this scalar, we adjust the velocity so that the pen travels exactly the required side length in 1 unit of time. The scaled integral is:
+$$z(X) = \int_0^X 2 \sin\left(\frac{\pi}{n}\right) e^{i \frac{2\pi}{n} \sum_{k=1}^n \frac{1}{1 + e^{-(x-k)\theta}}} dx$$
+
+Because we evaluate this strictly from the origin without arbitrary geometry offsets, the first vertex is anchored at $(0,0)$. The resulting shape perfectly inscribes within a unit circle that is shifted slightly into the positive real plane.
