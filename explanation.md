@@ -1,6 +1,6 @@
 We'll skip the $2 \sin\left(\frac{\pi}{n}\right)$ part for now and get back to it at the end. Let's look at:
 
-$$z(X) = \int_0^X e^{i \frac{2\pi}{n} \sum_{k=1}^n \frac{1}{1 + e^{-(x-k)\theta}}} dx$$
+$$z(X) = \int_0^X e^{\left( i \frac{2\pi}{n} \sum_{k=1}^n \frac{1}{1 + e^{-(x-k)\theta}} \right)} dx$$
 
 ### 1. Graphing Complex Functions
 Quick reminder: a complex number $z = a + bi$ plots on the complex plane just like Cartesian coordinates $(x, y)$ — real part on the horizontal axis, imaginary part on the vertical. And **Euler's formula** gives us:
@@ -65,7 +65,7 @@ To force the shape to maintain a constant circumradius of $R=1$ regardless of $n
 $$s = 2 \sin\left(\frac{\pi}{n}\right)$$
 
 By multiplying our integrand by this scalar, we adjust the velocity so that the pen travels exactly the required side length in 1 unit of time. The scaled integral is:
-$$z(X) = \int_0^X 2 \sin\left(\frac{\pi}{n}\right) e^{i \frac{2\pi}{n} \sum_{k=1}^n \frac{1}{1 + e^{-(x-k)\theta}}} dx$$
+$$z(X) = \int_0^X 2 \sin\left(\frac{\pi}{n}\right) e^{\left( i \frac{2\pi}{n} \sum_{k=1}^n \frac{1}{1 + e^{-(x-k)\theta}} \right)} dx$$
 
 This is what the "Constant Radius" checkbox does.
 
