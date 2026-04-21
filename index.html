@@ -12,6 +12,7 @@
     onload="renderMathInElement(document.body, {delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]});">
   </script>
   <script type="module" src="https://cdn.jsdelivr.net/npm/zero-md@3?register"></script>
+  <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
 </head>
 <body>
 
@@ -26,10 +27,7 @@
 <main class="app">
   <section class="top-row">
     <div class="canvas-col">
-      <div class="canvas-wrap">
-        <canvas id="canvas"></canvas>
-        <div id="tooltip" class="tooltip" hidden></div>
-      </div>
+      <div id="plot"></div>
     </div>
     <div class="card controls-card">
       <h2>Controls</h2>
