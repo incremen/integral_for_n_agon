@@ -6,9 +6,7 @@ function computeIntegralPath(n, theta, dx = 0.01, speedScale = 1) {
   const points = [];
   let real = 0;
   let imag = 0;
-  const maxX = n + 1;
-
-  for (let x = 0; x <= maxX; x += dx) {
+  for (let x = 0; x <= n; x += dx) {
     let sum = 0;
     for (let k = 1; k <= n; k++) {
       sum += sigmoid(theta * (x - k));
