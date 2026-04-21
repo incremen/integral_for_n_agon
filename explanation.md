@@ -83,7 +83,7 @@ If you evaluate the base integral, the polygon grows larger as $n$ increases. Wh
 
 If you drive at a constant speed of 1 unit/sec for $n$ seconds, you draw a shape with a total perimeter of exactly $n$. This means every individual side has a length of exactly 1. A regular polygon with a fixed side length of 1 must expand its radius ($R \approx \frac{n}{2\pi}$) to physically fit more sides.
 
-To force the shape to maintain a constant circumradius of $R=1$ regardless of $n$, we must change the speed of the pen. The exact side length $s$ of a unit $n$-gon is defined by trigonometry:
+To force the shape to maintain a constant circumradius of $R=1$ regardless of $n$, we must change the speed of the pen. The **circumradius** is the distance from the center of the polygon to any of its vertices — equivalently, the radius of the circle that passes through all the vertices. The exact side length $s$ of a unit $n$-gon (circumradius $R=1$) is defined by trigonometry:
 $$s = 2 \sin\left(\frac{\pi}{n}\right)$$
 
 By multiplying our integrand by this scalar, we adjust the velocity so that the pen travels exactly the required side length in 1 unit of time. The scaled integral is:
