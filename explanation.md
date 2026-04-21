@@ -3,17 +3,17 @@ We'll skip the $2 \sin\left(\frac{\pi}{n}\right)$ part for now and get back to i
 $$z(X) = \int_0^X e^{\left( i \frac{2\pi}{n} \sum_{k=1}^n \frac{1}{1 + e^{-(x-k)\theta}} \right)} dx$$
 
 ### 1. Graphing Complex Functions
-Quick reminder: a complex number $z = a + bi$ plots on the complex plane just like Cartesian coordinates $(x, y)$ — real part on the horizontal axis, imaginary part on the vertical. And **Euler's formula** gives us:
+Quick reminder: a complex number $z = a + bi$ plots on the complex plane just like Cartesian coordinates $(x, y)$, with the real part on the horizontal axis and the imaginary part on the vertical. **Euler's formula** gives us:
 $$e^{i\varphi} = \cos(\varphi) + i\sin(\varphi)$$
 
-So $e^{i\varphi}$ is always a unit vector pointing at angle $\varphi$ — its magnitude is strictly 1, regardless of $\varphi$.
+So $e^{i\varphi}$ is always a unit vector pointing at angle $\varphi$. Its magnitude is strictly 1, regardless of $\varphi$.
 
 When we integrate this with respect to $x$ (treating $x$ as time), the "pen" drawing the shape moves at constant speed 1. The integral accumulates movement, and since speed is fixed, the only thing that shapes the path is how the angle $\varphi$ in the exponent changes over time.
 
 Think of it like driving a car. The exponent is the exact angle of your steering wheel at time $x$:
 
-* **Turning Left (Increasing Angle):** In the complex plane, angle $0$ points East. Positive angles rotate counter-clockwise. If the exponent smoothly transitions from $0$ to $\pi/2$, the heading sweeps from East to North — the path curves left.
-* **Turning Right (Decreasing Angle):** If the exponent decreases over time (e.g., $0$ to $-\pi/2$), the heading sweeps clockwise — the path curves right.
+* **Turning Left (Increasing Angle):** In the complex plane, angle $0$ points East. Positive angles rotate counter-clockwise. If the exponent smoothly transitions from $0$ to $\pi/2$, the heading sweeps from East to North, and the path curves left.
+* **Turning Right (Decreasing Angle):** If the exponent decreases over time (e.g., $0$ to $-\pi/2$), the heading sweeps clockwise, and the path curves right.
 * **Driving Straight (Constant Angle):** If the exponent holds constant, the heading doesn't change, and the integral traces a straight line.
 
 ### 2. The Mechanism: Sigmoids and the Smooth Staircase
@@ -56,21 +56,21 @@ Here's an example for how this should work for a square ($n = 4$), evaluated ove
 * **3 to 4 seconds:** The car drives South for 1 second, drawing the left edge and returning exactly to the origin.
 * **At exactly 4 seconds:** The car is back at the start. The fourth sigmoid ($k=4$) triggers. The sum jumps to 4. The angle jumps to $\frac{8\pi}{4}$ (360 degrees, or $2\pi$). The car turns left one final time to face East, resetting to its exact starting orientation.
 
-### 4. Bounding the Growth: Velocity vs. Position
-If you evaluate the base integral, the polygon grows larger as $n$ increases. Why? Because the magnitude of $e^{i\varphi(x)}$ is exactly 1. This represents the **velocity** of the pen.
+### 4. Fixing the size
+We want our $n$-gon to be of a fixed size. A good way to think about this is to have a fixed **circumradius** of 1: the distance from the center of the polygon to any point.
+This way, any shape will stick within a circle of radius one.
+The function so far doesn't do this:
 
-If you drive at a constant speed of 1 unit/sec for $n$ seconds, you draw a shape with a total perimeter of exactly $n$. This means every individual side has a length of exactly 1. A regular polygon with a fixed side length of 1 must expand its radius ($R \approx \frac{n}{2\pi}$) to physically fit more sides.
+The magnitude of $e^{i\varphi(x)}$ is exactly 1, which is the **velocity** of the pen. If you drive at speed 1 for $n$ seconds, the total perimeter is exactly $n$, meaning every side has length 1. A regular polygon with a fixed side length of 1 has to expand its circumradius ($R \approx \frac{n}{2\pi}$) to fit more sides.
 
-To force the shape to maintain a constant circumradius of $R=1$ regardless of $n$, we must change the speed of the pen. The **circumradius** is the distance from the center of the polygon to any of its vertices — equivalently, the radius of the circle that passes through all the vertices. The exact side length $s$ of a unit $n$-gon (circumradius $R=1$) is defined by trigonometry:
+To hold the circumradius at $R = 1$ regardless of $n$, we have to change the speed of the pen instead. The side length $s$ of a unit $n$-gon (circumradius $R = 1$) is:
 $$s = 2 \sin\left(\frac{\pi}{n}\right)$$
 
-By multiplying our integrand by this scalar, we adjust the velocity so that the pen travels exactly the required side length in 1 unit of time. The scaled integral is:
+Multiplying the integrand by this scalar slows the pen down so that in 1 unit of time it travels exactly $s$. That gives us the full integral:
 $$z(X) = \int_0^X 2 \sin\left(\frac{\pi}{n}\right) e^{\left( i \frac{2\pi}{n} \sum_{k=1}^n \frac{1}{1 + e^{-(x-k)\theta}} \right)} dx$$
 
-This is what the "Constant Radius" checkbox does.
-
-Because we evaluate this strictly from the origin without arbitrary geometry offsets, the first vertex is anchored at $(0,0)$. The resulting shape perfectly inscribes within a unit circle that is shifted slightly into the positive real plane.
+This is what the "Constant Size" checkbox toggles on and off.
 
 ---
 
-*Note: this integral has no closed-form solution (probably? finding one would be hell anyway), so we render it numerically using **Euler's method** — stepping forward in tiny increments of $dx$ and accumulating position.*
+*Note: this integral probably has no nice closed-form solution (and finding one would be hell anyway), so we render it numerically using **Euler's method**, stepping forward in tiny increments of $dx$ and accumulating position.*
