@@ -13,7 +13,7 @@
 </head>
 <body>
 
-<header>
+<header>  
   <h1>The Integral n-gon</h1>
   <p>A regular polygon emerges from pure numerical integration — no geometry tricks.</p>
 </header>
@@ -46,15 +46,23 @@
     <div class="card info-text">
       <h2>How It Works</h2>
 
-      <h3>The Setup</h3>
-      <p>We integrate a complex-valued function. The result is a parametric curve in the complex plane — the horizontal axis is the real part, the vertical axis is the imaginary part, and the integration variable $x$ acts as time driving a pen across the canvas.</p>
+      <h3>Parametric Complex Curve</h3>
+      <p>This isn't a standard $y = f(x)$ graph. The integral outputs a complex number $z = a + bi$ as the variable $x$ (acting as "time") increases. We plot the real part on the horizontal axis and the imaginary part on the vertical. The curve can loop back on itself because $x$ drives the position, not an axis.</p>
 
-      <h3>Constant Speed</h3>
-      <p>The integrand is $e^{i \cdot \text{phase}}$, which always has magnitude 1. So the pen moves at a constant speed — it can only change <em>direction</em>, never accelerate or slow down.</p>
+      <h3>Constant Drawing Speed</h3>
+      <p>The integrand is $e^{i \cdot \phi(x)}$, which always has magnitude 1. The "pen" moves at a constant velocity — it can only change <em>direction</em>, never speed up or slow down. This is arc-length parameterization: the shape's perimeter equals the integration range.</p>
 
-      <h3>Sharpness ($\theta$)</h3>
-      <p>Inside the exponent, the sum of sigmoids acts like a staircase. Each time $x$ passes an integer $k$, the sigmoid $\frac{1}{1+e^{-\theta(x-k)}}$ flips from 0 to 1, bumping the total sum by 1. This causes the phase to jump by $2\pi/n$ — a sudden change in direction that creates a corner of the polygon.</p>
-      <p>$\theta$ controls how steep each step is. Low $\theta$ gives a gradual, rounded turn. High $\theta$ makes the step nearly instantaneous, producing a sharp corner.</p>
+      <h3>The Steering Wheel: Sum of Sigmoids</h3>
+      <p>The phase $\phi(x) = \frac{2\pi}{n}\sum_{k=1}^{n}\sigma(\theta(x-k))$ steers the pen. Each sigmoid activates as $x$ passes the integer $k$, making the sum act like a <strong>smooth staircase</strong>. Every step-up of 1 rotates the pen by $\frac{2\pi}{n}$, creating one corner of the polygon.</p>
+
+      <h3>Sharpness ($\theta$) and Curvature</h3>
+      <p>$\theta$ controls how abruptly each sigmoid switches from 0 to 1. Low $\theta$ means a slow transition — the angle changes gradually, producing <strong>rounded corners</strong>. High $\theta$ makes the switch nearly instantaneous, producing <strong>sharp corners</strong>. Crank it up to 300 and the integral essentially becomes a discrete sum of straight-line vectors.</p>
+
+      <h3>Closing the Loop</h3>
+      <p>Because the sum has $n$ terms, the total phase change after $x$ passes $n$ is $\frac{2\pi}{n} \cdot n = 2\pi$ — a full 360° rotation. This returns the pen to its original heading, closing the polygon perfectly.</p>
+
+      <h3>Numerical Integration</h3>
+      <p>There's no closed-form solution, so we use Euler's method: start at the origin, advance $x$ by a tiny $dx$, evaluate the integrand, and accumulate the result. The polygon emerges entirely from this blind vector arithmetic — no vertices are calculated, no geometry is hardcoded.</p>
     </div>
   </section>
 </main>
