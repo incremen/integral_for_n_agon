@@ -28,6 +28,12 @@ header p {
   font-size: 0.95rem;
 }
 
+.hero-equation {
+  margin-top: 28px;
+  font-size: 1.8rem;
+  overflow-x: auto;
+}
+
 .app {
   display: flex;
   flex-direction: column;
