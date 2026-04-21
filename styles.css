@@ -135,11 +135,6 @@ canvas {
   margin-bottom: 6px;
 }
 
-.slider-group label span {
-  font-weight: 700;
-  color: #2563eb;
-}
-
 input[type="range"] {
   -webkit-appearance: none;
   appearance: none;
