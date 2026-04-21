@@ -122,35 +122,16 @@ input[type="range"]::-webkit-slider-thumb {
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
 }
 
-/* Math equation */
+/* Explanation panel (zero-md) */
 
-.equation-display {
-  text-align: center;
-  overflow-x: auto;
-  padding: 8px 0;
-}
-
-/* Educational text */
-
-.info-text {
-  font-size: 0.88rem;
-  line-height: 1.6;
-  color: #424245;
-}
-
-.info-text h3 {
-  font-size: 0.92rem;
-  font-weight: 600;
-  margin: 12px 0 4px;
-  color: #1d1d1f;
-}
-
-.info-text h3:first-child {
-  margin-top: 0;
-}
-
-.info-text p {
-  margin-bottom: 8px;
+.explanation-panel {
+  background: #fff;
+  border: 1px solid #d2d2d7;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  overflow-y: auto;
+  max-height: 70vh;
 }
 
 /* ---------- Responsive ---------- */

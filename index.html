@@ -10,6 +10,7 @@
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
     onload="renderMathInElement(document.body, {delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]});">
   </script>
+  <script type="module" src="https://cdn.jsdelivr.net/gh/zerodevx/zero-md@2/dist/zero-md.min.js"></script>
 </head>
 <body>
 
@@ -36,33 +37,24 @@
       </div>
     </div>
 
-    <div class="card">
-      <h2>The Equation</h2>
-      <div class="equation-display">
-        $$z(X) = \int_0^X \exp\!\left(i \cdot \frac{2\pi}{n} \cdot \sum_{k=1}^{n} \frac{1}{1 + e^{-\theta(x-k)}}\right) dx$$
-      </div>
-    </div>
-
-    <div class="card info-text">
-      <h2>How It Works</h2>
-
-      <h3>Parametric Complex Curve</h3>
-      <p>This isn't a standard $y = f(x)$ graph. The integral outputs a complex number $z = a + bi$ as the variable $x$ (acting as "time") increases. We plot the real part on the horizontal axis and the imaginary part on the vertical. The curve can loop back on itself because $x$ drives the position, not an axis.</p>
-
-      <h3>Constant Drawing Speed</h3>
-      <p>The integrand is $e^{i \cdot \phi(x)}$, which always has magnitude 1. The "pen" moves at a constant velocity — it can only change <em>direction</em>, never speed up or slow down. This is arc-length parameterization: the shape's perimeter equals the integration range.</p>
-
-      <h3>The Steering Wheel: Sum of Sigmoids</h3>
-      <p>The phase $\phi(x) = \frac{2\pi}{n}\sum_{k=1}^{n}\sigma(\theta(x-k))$ steers the pen. Each sigmoid activates as $x$ passes the integer $k$, making the sum act like a <strong>smooth staircase</strong>. Every step-up of 1 rotates the pen by $\frac{2\pi}{n}$, creating one corner of the polygon.</p>
-
-      <h3>Sharpness ($\theta$) and Curvature</h3>
-      <p>$\theta$ controls how abruptly each sigmoid switches from 0 to 1. Low $\theta$ means a slow transition — the angle changes gradually, producing <strong>rounded corners</strong>. High $\theta$ makes the switch nearly instantaneous, producing <strong>sharp corners</strong>. Crank it up to 300 and the integral essentially becomes a discrete sum of straight-line vectors.</p>
-
-      <h3>Closing the Loop</h3>
-      <p>Because the sum has $n$ terms, the total phase change after $x$ passes $n$ is $\frac{2\pi}{n} \cdot n = 2\pi$ — a full 360° rotation. This returns the pen to its original heading, closing the polygon perfectly.</p>
-
-      <h3>Numerical Integration</h3>
-      <p>There's no closed-form solution, so we use Euler's method: start at the origin, advance $x$ by a tiny $dx$, evaluate the integrand, and accumulate the result. The polygon emerges entirely from this blind vector arithmetic — no vertices are calculated, no geometry is hardcoded.</p>
+    <div class="explanation-panel">
+      <zero-md src="explanation.md">
+        <template data-merge="append">
+          <style>
+            .markdown-body {
+              font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+              font-size: 0.9rem;
+              line-height: 1.7;
+              color: #424245;
+            }
+            .markdown-body h1 { font-size: 1.25rem; color: #1d1d1f; }
+            .markdown-body h3 { font-size: 0.95rem; color: #1d1d1f; margin-top: 1.2em; }
+            .markdown-body p { margin-bottom: 0.6em; }
+            .markdown-body ul { padding-left: 1.2em; }
+            .markdown-body ol { padding-left: 1.2em; }
+          </style>
+        </template>
+      </zero-md>
     </div>
   </section>
 </main>
