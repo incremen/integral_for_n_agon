@@ -48,8 +48,9 @@ header p {
 .canvas-col {
   flex: 1 1 0;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
+  min-width: 0;
 }
 
 canvas {
@@ -57,10 +58,13 @@ canvas {
   border: 1px solid #d2d2d7;
   border-radius: 12px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  display: block;
+  max-width: 100%;
 }
 
 .controls-card {
-  flex: 0 0 320px;
+  flex: 0 0 360px;
+  align-self: stretch;
 }
 
 .card {
@@ -129,10 +133,8 @@ input[type="range"]::-webkit-slider-thumb {
   background: #fff;
   border: 1px solid #d2d2d7;
   border-radius: 12px;
-  padding: 24px;
+  padding: 24px 32px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-  overflow-y: auto;
-  max-height: 70vh;
 }
 
 /* ---------- Responsive ---------- */

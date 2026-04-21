@@ -7,7 +7,7 @@ const thetaVal = document.getElementById("theta-val");
 
 function resizeCanvas() {
   const container = canvas.parentElement;
-  const size = Math.min(container.clientWidth, container.clientHeight);
+  const size = Math.min(container.clientWidth, 600);
   const dpr = window.devicePixelRatio || 1;
 
   canvas.style.width = size + "px";
