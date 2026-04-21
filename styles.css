@@ -143,6 +143,32 @@ input[type="range"]::-webkit-slider-thumb {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
+.credit {
+  text-align: center;
+  margin-top: -8px;
+}
+
+.credit span {
+  display: inline-block;
+  background: #fff;
+  border: 1px solid #d2d2d7;
+  border-radius: 999px;
+  padding: 8px 18px;
+  color: #6e6e73;
+  font-size: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.credit a {
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.credit a:hover {
+  text-decoration: underline;
+}
+
 /* ---------- Responsive ---------- */
 
 @media (max-width: 800px) {
