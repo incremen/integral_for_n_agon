@@ -89,4 +89,6 @@ $$s = 2 \sin\left(\frac{\pi}{n}\right)$$
 By multiplying our integrand by this scalar, we adjust the velocity so that the pen travels exactly the required side length in 1 unit of time. The scaled integral is:
 $$z(X) = \int_0^X 2 \sin\left(\frac{\pi}{n}\right) e^{i \frac{2\pi}{n} \sum_{k=1}^n \frac{1}{1 + e^{-(x-k)\theta}}} dx$$
 
+This is what the "Constant Radius" checkbox does.
+
 Because we evaluate this strictly from the origin without arbitrary geometry offsets, the first vertex is anchored at $(0,0)$. The resulting shape perfectly inscribes within a unit circle that is shifted slightly into the positive real plane.
