@@ -239,6 +239,11 @@ input[type="range"]::-webkit-slider-thumb {
   .top-row {
     flex-direction: column;
     gap: 20px;
+    align-items: stretch;
+  }
+
+  .canvas-col {
+    width: 100%;
   }
 
   .controls-card {
