@@ -1,0 +1,168 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: #f5f5f7;
+  color: #1d1d1f;
+  min-height: 100vh;
+}
+
+header {
+  text-align: center;
+  padding: 32px 24px 16px;
+}
+
+header h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+header p {
+  color: #6e6e73;
+  margin-top: 4px;
+  font-size: 0.95rem;
+}
+
+.app {
+  display: flex;
+  gap: 32px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 16px 32px 48px;
+}
+
+/* ---------- Canvas column ---------- */
+
+.canvas-col {
+  flex: 1 1 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+canvas {
+  background: #fff;
+  border: 1px solid #d2d2d7;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+}
+
+/* ---------- Controls column ---------- */
+
+.controls-col {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 480px;
+}
+
+.card {
+  background: #fff;
+  border: 1px solid #d2d2d7;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.card h2 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: #1d1d1f;
+}
+
+/* Sliders */
+
+.slider-group {
+  margin-bottom: 18px;
+}
+
+.slider-group:last-child {
+  margin-bottom: 0;
+}
+
+.slider-group label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+
+.slider-group label span {
+  font-weight: 700;
+  color: #2563eb;
+}
+
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  background: #e5e5ea;
+  outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #2563eb;
+  cursor: pointer;
+  border: 2px solid #fff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Math equation */
+
+.equation-display {
+  text-align: center;
+  overflow-x: auto;
+  padding: 8px 0;
+}
+
+/* Educational text */
+
+.info-text {
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: #424245;
+}
+
+.info-text h3 {
+  font-size: 0.92rem;
+  font-weight: 600;
+  margin: 12px 0 4px;
+  color: #1d1d1f;
+}
+
+.info-text h3:first-child {
+  margin-top: 0;
+}
+
+.info-text p {
+  margin-bottom: 8px;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 800px) {
+  .app {
+    flex-direction: column;
+    padding: 16px;
+    gap: 20px;
+  }
+
+  .controls-col {
+    max-width: 100%;
+  }
+}
