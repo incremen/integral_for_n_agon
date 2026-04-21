@@ -12,10 +12,11 @@ let traceTimer = null;
 
 function draw() {
   const n = parseInt(nSlider.value);
-  const theta = parseInt(thetaSlider.value);
+  const s = parseFloat(thetaSlider.value);
+  const theta = 100 * Math.pow(s, 3);
   const constantRadius = radiusToggle.checked;
   nVal.textContent = n;
-  thetaVal.textContent = theta;
+  thetaVal.textContent = theta < 10 ? theta.toFixed(2) : theta.toFixed(1);
 
   cancelTrace();
 
