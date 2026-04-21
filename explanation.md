@@ -56,21 +56,7 @@ Here's an example for how this should work for a square ($n = 4$), evaluated ove
 * **3 to 4 seconds:** The car drives South for 1 second, drawing the left edge and returning exactly to the origin.
 * **At exactly 4 seconds:** The car is back at the start. The fourth sigmoid ($k=4$) triggers. The sum jumps to 4. The angle jumps to $\frac{8\pi}{4}$ (360 degrees, or $2\pi$). The car turns left one final time to face East, resetting to its exact starting orientation.
 
-### 4. Numerical Rendering (Euler's Method)
-Because this integral is a composition of sigmoids inside a complex exponential, it does not have a standard closed-form solution. To evaluate it (and draw it with code), we discretize it using **Euler's Method**.
-
-Euler's method approximates the accumulated area by breaking the continuous function into small, distinct steps:
-1.  **Initialize:** Start at position $z_0 = (0, 0)$.
-2.  **Iterate:** Choose a tiny step size for time, $dx$ (e.g., $0.01$).
-3.  **Evaluate:** At the current time $x$, calculate the exact angle $\varphi$ using the formula.
-4.  **Accumulate:** Multiply the current vector by the step size to get the distance traveled in that micro-second, and add it to your position:
-    $x_{new} = x_{old} + \cos(\varphi) \cdot dx$
-    $y_{new} = y_{old} + \sin(\varphi) \cdot dx$
-5.  **Repeat:** Increment $x$ by $dx$ and repeat until $x = n$.
-
-This blind, iterative vector addition draws the polygon perfectly. The computer calculates no vertices and uses no hardcoded geometry; the shape emerges entirely from the math.
-
-### 5. Bounding the Growth: Velocity vs. Position
+### 4. Bounding the Growth: Velocity vs. Position
 If you evaluate the base integral, the polygon grows larger as $n$ increases. Why? Because the magnitude of $e^{i\varphi(x)}$ is exactly 1. This represents the **velocity** of the pen.
 
 If you drive at a constant speed of 1 unit/sec for $n$ seconds, you draw a shape with a total perimeter of exactly $n$. This means every individual side has a length of exactly 1. A regular polygon with a fixed side length of 1 must expand its radius ($R \approx \frac{n}{2\pi}$) to physically fit more sides.
@@ -84,3 +70,7 @@ $$z(X) = \int_0^X 2 \sin\left(\frac{\pi}{n}\right) e^{i \frac{2\pi}{n} \sum_{k=1
 This is what the "Constant Radius" checkbox does.
 
 Because we evaluate this strictly from the origin without arbitrary geometry offsets, the first vertex is anchored at $(0,0)$. The resulting shape perfectly inscribes within a unit circle that is shifted slightly into the positive real plane.
+
+---
+
+*Note: this integral has no closed-form solution (probably? finding one would be hell anyway), so we render it numerically using **Euler's method** — stepping forward in tiny increments of $dx$ and accumulating position.*
