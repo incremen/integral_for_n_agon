@@ -17,6 +17,14 @@ function draw() {
   const xs = points.map((p) => p.x);
   const ys = points.map((p) => p.y);
 
+  const box = getBoundingBox(points);
+  const halfSpan = Math.max(box.width, box.height) / 2;
+  const pad = halfSpan * 0.1;
+  const xMin = box.cx - halfSpan - pad;
+  const xMax = box.cx + halfSpan + pad;
+  const yMin = box.cy - halfSpan - pad;
+  const yMax = box.cy + halfSpan + pad;
+
   const trace = {
     x: xs,
     y: ys,
@@ -25,8 +33,8 @@ function draw() {
   };
 
   const layout = {
-    xaxis: { constrain: "domain" },
-    yaxis: { scaleanchor: "x", constrain: "domain" },
+    xaxis: { range: [xMin, xMax], constrain: "domain" },
+    yaxis: { range: [yMin, yMax], scaleanchor: "x", constrain: "domain" },
     margin: { l: 40, r: 20, t: 20, b: 40 },
   };
 
