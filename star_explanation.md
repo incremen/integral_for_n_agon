@@ -2,7 +2,7 @@
 
 Same idea as the [n-gon](index.html), but we want a star instead of a regular polygon. The trick is to double the number of sigmoids and let them contribute different turn angles.
 
-$$z(x) = \int_0^x \exp\!\left( i \sum_{k=1}^{2n} c_k \cdot \frac{1}{1 + e^{-(y-k)\theta}} \right) dy$$
+$$z(x) = \int_0^x \exp\!\left( i \frac{\pi}{n} \sum_{k=1}^{2n} \frac{1 + (-1)^{k+1} s}{1 + e^{-(y-k)\theta}} \right) dy$$
 
 ### 1. Why 2n sigmoids
 
@@ -10,10 +10,12 @@ A regular $n$-gon has $n$ corners, and we built it with $n$ sigmoids. A star wit
 
 ### 2. Alternating turn angles
 
-At each corner the "car" turns by a specific angle. For the whole path to close into a star, all the turns still have to add up to $2\pi$ (one full rotation). So we give each sigmoid a coefficient $c_k$:
+At each corner the "car" turns by a specific angle. For the whole path to close into a star, all the turns still have to add up to $2\pi$ (one full rotation).
 
-* **Odd $k$ (outer points):** $c_k = \frac{\pi}{n}(1 + s)$
-* **Even $k$ (inner valleys):** $c_k = \frac{\pi}{n}(1 - s)$
+In the n-gon case every corner turned by the same amount, $\frac{2\pi}{n}$. For the star we want alternating amounts: a sharper turn at outer points and a gentler (or reflex) turn at inner valleys. That's what the $(-1)^{k+1} s$ factor does:
+
+* **Odd $k$ (outer points):** the coefficient is $\frac{\pi}{n}(1 + s)$
+* **Even $k$ (inner valleys):** the coefficient is $\frac{\pi}{n}(1 - s)$
 
 No matter what $s$ is, summing $n$ of each gives exactly $2\pi$ of total turn.
 
