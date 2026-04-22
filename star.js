@@ -16,10 +16,10 @@ function draw() {
   sVal.textContent = s.toFixed(2);
   thetaVal.textContent = formatTheta(theta);
 
-  const speedScale = constantSize
+  const scale = constantSize
     ? Math.sin(Math.PI / n) / Math.cos(((1 - s) * Math.PI) / (2 * n))
     : 1;
-  const points = computeStarPath(n, theta, s, DX, speedScale);
+  const points = scalePath(computeStarPath(n, theta, s, DX), scale);
   renderPlot(points, DX);
 }
 

@@ -12,7 +12,7 @@ function sigmoid(z) {
   return 1 / (1 + Math.exp(-z));
 }
 
-function computeIntegralPath(n, theta, dx, speedScale = 1) {
+function computeIntegralPath(n, theta, dx) {
   const points = [];
   let real = 0;
   let imag = 0;
@@ -23,15 +23,15 @@ function computeIntegralPath(n, theta, dx, speedScale = 1) {
     }
 
     const phase = (2 * Math.PI / n) * sum;
-    real += speedScale * Math.cos(phase) * dx;
-    imag += speedScale * Math.sin(phase) * dx;
+    real += Math.cos(phase) * dx;
+    imag += Math.sin(phase) * dx;
     points.push({ x: real, y: imag });
   }
 
   return points;
 }
 
-function computeStarPath(n, theta, sharpness, dx, speedScale = 1) {
+function computeStarPath(n, theta, sharpness, dx) {
   const points = [];
   let real = 0;
   let imag = 0;
@@ -46,12 +46,17 @@ function computeStarPath(n, theta, sharpness, dx, speedScale = 1) {
       phase += c * sigmoid(theta * (x - k));
     }
 
-    real += speedScale * Math.cos(phase) * dx;
-    imag += speedScale * Math.sin(phase) * dx;
+    real += Math.cos(phase) * dx;
+    imag += Math.sin(phase) * dx;
     points.push({ x: real, y: imag });
   }
 
   return points;
+}
+
+function scalePath(points, scale) {
+  if (scale === 1) return points;
+  return points.map((p) => ({ x: p.x * scale, y: p.y * scale }));
 }
 
 function getBoundingBox(points) {

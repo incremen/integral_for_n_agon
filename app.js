@@ -12,8 +12,8 @@ function draw() {
   nVal.textContent = n;
   thetaVal.textContent = formatTheta(theta);
 
-  const speedScale = constantRadius ? 2 * Math.sin(Math.PI / n) : 1;
-  const points = computeIntegralPath(n, theta, DX, speedScale);
+  const scale = constantRadius ? 2 * Math.sin(Math.PI / n) : 1;
+  const points = scalePath(computeIntegralPath(n, theta, DX), scale);
   renderPlot(points, DX);
 }
 
