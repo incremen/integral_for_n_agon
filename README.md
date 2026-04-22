@@ -1,6 +1,7 @@
 # The Integral n-gon
 
-A regular polygon emerges from a complex line integral — rendered from integration.
+If you graph this really weird complex function, you get an n-gon.
+Using Plotly for the graphing, zero-md to render the latex.
 
 **site:** https://integral-for-n-agon.vercel.app/
 
