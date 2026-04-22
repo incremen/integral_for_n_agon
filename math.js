@@ -1,7 +1,7 @@
-const DX = 0.01;
+const DX = 0.001;
 
 function sliderToTheta(s) {
-  return 500 * Math.pow(s, 3);
+  return 1_000 * Math.pow(s, 3);
 }
 
 function formatTheta(theta) {
@@ -12,7 +12,7 @@ function sigmoid(z) {
   return 1 / (1 + Math.exp(-z));
 }
 
-function computeIntegralPath(n, theta, dx = 0.01, speedScale = 1) {
+function computeIntegralPath(n, theta, dx, speedScale = 1) {
   const points = [];
   let real = 0;
   let imag = 0;
