@@ -31,7 +31,7 @@ function computeIntegralPath(n, theta, dx, speedScale = 1) {
   return points;
 }
 
-function computeStarPath(n, theta, sharpness, dx = 0.01, speedScale = 1) {
+function computeStarPath(n, theta, sharpness, dx, speedScale = 1) {
   const points = [];
   let real = 0;
   let imag = 0;
