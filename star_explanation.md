@@ -2,7 +2,7 @@
 
 This is an extension of the [$n$-gon](index.html) construction. The core trick is the same: sum shifted sigmoids in the exponent of the complex exponential so that the integration "pen" turns at specific times. For a star, we just need more sigmoids and a way to make some turns sharper than others.
 
-$$z(X) = \int_0^X e^{\left( i \frac{\pi}{n} \sum_{k=1}^{2n} \frac{1 + (-1)^{k+1} s}{1 + e^{-(x-k)\theta}} \right)} dx$$
+$$z(X) = \frac{\sin(\pi/n)}{\cos\!\left(\frac{(1-s)\pi}{2n}\right)} \int_0^X e^{\left( i \frac{\pi}{n} \sum_{k=1}^{2n} \frac{1 + (-1)^{k+1} s}{1 + e^{-(x-k)\theta}} \right)} dx$$
 
 ### 1. Counting the corners
 
@@ -60,7 +60,7 @@ At speed 1, each "edge" of the star (the segment between two adjacent corners in
 
 $$L = \frac{\sin(\pi/n)}{\cos\!\left(\frac{(1-s)\pi}{2n}\right)}$$
 
-Multiplying the integrand by $L$ slows the pen down so that in 1 unit of time it travels exactly $L$, locking the outer circumradius at 1. Sanity checks:
+Since the integral is linear, we pull $L$ out front as a constant scalar — it rescales the whole path to lock the outer circumradius at 1. Sanity checks:
 
 * **$s = 0$:** $L = \frac{\sin(\pi/n)}{\cos(\pi/(2n))} = 2\sin\!\left(\frac{\pi}{2n}\right)$ — the side length of a regular $2n$-gon with circumradius 1. ✓
 * **$s = 1$:** the inner-valley turn is zero, so pairs of edges merge. $L = \sin(\pi/n)$, and the merged edge length is $2L = 2\sin(\pi/n)$ — the side length of a regular $n$-gon with circumradius 1. ✓

@@ -66,8 +66,8 @@ The magnitude of $e^{i\varphi(y)}$ is exactly 1, which is the **velocity** of th
 To hold the circumradius at $R = 1$ regardless of $n$, we have to change the speed of the pen instead. The side length $s$ of a unit $n$-gon (circumradius $R = 1$) is:
 $$s = 2 \sin\left(\frac{\pi}{n}\right)$$
 
-Multiplying the integrand by this scalar slows the pen down so that in 1 unit of time it travels exactly $s$. That gives us the full integral:
-$$z(x) = \int_0^x 2 \sin\left(\frac{\pi}{n}\right) e^{\left( i \frac{2\pi}{n} \sum_{k=1}^n \frac{1}{1 + e^{-(y-k)\theta}} \right)} dy$$
+Since the integral is linear, we can pull this constant scalar out front. That gives us the full integral:
+$$z(x) = 2 \sin\left(\frac{\pi}{n}\right) \int_0^x e^{\left( i \frac{2\pi}{n} \sum_{k=1}^n \frac{1}{1 + e^{-(y-k)\theta}} \right)} dy$$
 
 This is what the "Constant Size" checkbox toggles on and off.
 
