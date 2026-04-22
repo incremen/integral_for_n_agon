@@ -21,6 +21,29 @@ function computeIntegralPath(n, theta, dx = 0.01, speedScale = 1) {
   return points;
 }
 
+function computeStarPath(n, theta, sharpness, dx = 0.01, speedScale = 1) {
+  const points = [];
+  let real = 0;
+  let imag = 0;
+  const total = 2 * n;
+  const cOdd = (Math.PI / n) * (1 + sharpness);
+  const cEven = (Math.PI / n) * (1 - sharpness);
+
+  for (let x = 0; x <= total; x += dx) {
+    let phase = 0;
+    for (let k = 1; k <= total; k++) {
+      const c = k % 2 === 1 ? cOdd : cEven;
+      phase += c * sigmoid(theta * (x - k));
+    }
+
+    real += speedScale * Math.cos(phase) * dx;
+    imag += speedScale * Math.sin(phase) * dx;
+    points.push({ x: real, y: imag });
+  }
+
+  return points;
+}
+
 function getBoundingBox(points) {
   let minX = Infinity, maxX = -Infinity;
   let minY = Infinity, maxY = -Infinity;
