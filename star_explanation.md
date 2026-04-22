@@ -1,34 +1,57 @@
-# The Integral n-star
+# The Integral $n$-star
 
-Same idea as the [n-gon](index.html), but we want a star instead of a regular polygon. The trick is to double the number of sigmoids and let them contribute different turn angles.
+This is an extension of the [$n$-gon](index.html) construction. The core trick is the same: sum shifted sigmoids in the exponent of the complex exponential so that the integration "pen" turns at specific times. For a star, we just need more sigmoids and a way to make some turns sharper than others.
 
-$$z(x) = \int_0^x \exp\!\left( i \frac{\pi}{n} \sum_{k=1}^{2n} \frac{1 + (-1)^{k+1} s}{1 + e^{-(y-k)\theta}} \right) dy$$
+$$z(X) = \int_0^X e^{\left( i \frac{\pi}{n} \sum_{k=1}^{2n} \frac{1 + (-1)^{k+1} s}{1 + e^{-(x-k)\theta}} \right)} dx$$
 
-### 1. Why 2n sigmoids
+### 1. Counting the corners
 
-A regular $n$-gon has $n$ corners, and we built it with $n$ sigmoids. A star with $n$ points has $2n$ corners (the outer points and the inner valleys between them), so we need $2n$ sigmoids triggering at $y = 1, 2, \dots, 2n$.
+A regular $n$-gon has $n$ corners, and we built it with exactly $n$ sigmoids triggering at $x = 1, 2, \dots, n$.
 
-### 2. Alternating turn angles
+An $n$-pointed star has $2n$ corners: $n$ outer points and $n$ inner valleys between them. So, we need $2n$ sigmoids, triggering at $x = 1, 2, \dots, 2n$. Odd values of $k$ will correspond to the outer points, and even values of $k$ to the inner valleys.
 
-At each corner the "car" turns by a specific angle. For the whole path to close into a star, all the turns still have to add up to $2\pi$ (one full rotation).
+Because we are making twice as many turns, the integration runs from $x = 0$ to $x = 2n$ instead of $0$ to $n$.
 
-In the n-gon case every corner turned by the same amount, $\frac{2\pi}{n}$. For the star we want alternating amounts: a sharper turn at outer points and a gentler (or reflex) turn at inner valleys. That's what the $(-1)^{k+1} s$ factor does:
+### 2. Why equal turns won't work
 
-* **Odd $k$ (outer points):** the coefficient is $\frac{\pi}{n}(1 + s)$
-* **Even $k$ (inner valleys):** the coefficient is $\frac{\pi}{n}(1 - s)$
+In the $n$-gon, every sigmoid contributed the same exterior angle of $\frac{2\pi}{n}$ to the steering wheel. If we did the same thing here, $2n$ sigmoids each contributing $\frac{2\pi}{2n} = \frac{\pi}{n}$ would just give us a regular $2n$-gon. Not a star.
 
-No matter what $s$ is, summing $n$ of each gives exactly $2\pi$ of total turn.
+To get a star, we need **alternating** turns: a large turn at each outer point, followed by a smaller (or even negative) turn at each inner valley, repeating until the shape is closed.
 
-The parameter $s$ (star-ness) controls how sharp the outer points are versus how flat the inner valleys are:
+### 3. Building the alternating coefficient
 
-* **$s = 0$:** every corner turns the same amount ($\frac{\pi}{n}$), so you get a regular $2n$-gon.
-* **$s = 1$:** inner valleys don't turn at all, so neighboring edges are collinear. You get a regular $n$-gon.
-* **$s = 2$:** inner valleys turn in the opposite direction (reflex turns). This gives the classic $n$-pointed star.
+Let's give each sigmoid its own turn angle, $c_k$. We have two constraints:
 
-### 3. Everything else is the same
+1.  **Odd $k$ and even $k$ get different values** (to create alternating corners).
+2.  **The total accumulated turn must still sum to $2\pi$** (so the path closes).
 
-Sharpness $\theta$ still controls how abruptly each sigmoid fires, which controls how sharp the corners are. Integration still runs from $y = 0$ to $y = 2n$.
+Constraint 2 is straightforward: if the $n$ odd corners each contribute angle $a$, and the $n$ even corners each contribute angle $b$, then the total rotation is $n(a + b)$. Setting that equal to $2\pi$ gives $a + b = \frac{2\pi}{n}$.
 
----
+The most natural way to achieve this is to take the "average" turn $\frac{\pi}{n}$ and split it symmetrically by adding and subtracting a modifier (our "star-ness" parameter, $s$):
 
-*Same Euler's-method rendering as the n-gon page.*
+* **Odd $k$:** $c_k = \frac{\pi}{n}(1 + s)$
+* **Even $k$:** $c_k = \frac{\pi}{n}(1 - s)$
+
+Notice that $a + b = \frac{\pi}{n}(1 + s) + \frac{\pi}{n}(1 - s) = \frac{2\pi}{n}$ for *any* value of $s$. The math guarantees the loop will always close perfectly.
+
+### 4. Writing it as one expression
+
+Instead of writing a piecewise definition for $c_k$, we can fold the alternating logic directly into the formula using the alternating sequence $(-1)^{k+1}$:
+
+$$c_k = \frac{\pi}{n} \left( 1 + (-1)^{k+1} s \right)$$
+
+At odd values of $k$ (where $(-1)^{k+1} = +1$), this evaluates to $\frac{\pi}{n}(1 + s)$. At even values of $k$ (where $(-1)^{k+1} = -1$), it evaluates to $\frac{\pi}{n}(1 - s)$. Plugging this $c_k$ into the sigmoid sum gives us the full integrand at the top of the page.
+
+### 5. What the star-ness parameter ($s$) does
+
+The parameter $s$ elegantly interpolates between different families of shapes:
+
+* **$s = 0$:** Every corner turns by exactly $\frac{\pi}{n}$. This draws a regular $2n$-gon.
+* **$0 < s < 1$:** The outer corners are sharper than the inner ones. This draws a "bumpy" polygon.
+* **$s = 1$:** The inner-valley turns become exactly zero ($\frac{\pi}{n}(1-1)$). The $2n$ corners collapse into $n$ corners as the edges on either side of the valley merge into a single straight line. This draws a regular $n$-gon.
+* **$1 < s < 2$:** The inner turns become *negative*. The "car" actually steers to the right for a moment at every valley before resuming its left-hand turns at the outer points. This enters classic star territory.
+* **$s = 2$:** The geometry locks into perfect proportions. For $n = 5$, this draws the standard, perfectly intersecting five-pointed star.
+
+### 6. Sharpness ($\theta$)
+
+Just like in the $n$-gon, $\theta$ controls how abruptly each turn happens. A low $\theta$ smears the turn across a wide interval of time, resulting in rounded, balloon-like outer points and smooth inner valleys. A high $\theta$ forces the sigmoids to behave like instant step functions, producing infinitely sharp corners.
