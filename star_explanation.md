@@ -52,6 +52,22 @@ The parameter $s$ elegantly interpolates between different families of shapes:
 * **$1 < s < 2$:** The inner turns become *negative*. The "car" actually steers to the right for a moment at every valley before resuming its left-hand turns at the outer points. This enters classic star territory.
 * **$s = 2$:** The geometry locks into perfect proportions. For $n = 5$, this draws the standard, perfectly intersecting five-pointed star.
 
-### 6. Sharpness ($\theta$)
+### 6. Fixing the size
+
+Just like with the $n$-gon, we want the star to stay at a fixed size regardless of $n$ and $s$. We'll again aim for an **outer circumradius** of 1: the distance from the center to each outer point is always 1, so the shape fits inside a unit circle.
+
+At speed 1, each "edge" of the star (the segment between two adjacent corners in the $2n$-gon frame) has length 1. For an outer circumradius of 1, we need the edge length $L$ to be whatever the geometry demands. Using the isoceles triangle formed by the center and two adjacent outer points, with its apex angle of $\frac{2\pi}{n}$ split by the edge at a half-angle of $\frac{(1-s)\pi}{2n}$ (half the inner-valley turn), we get:
+
+$$L = \frac{\sin(\pi/n)}{\cos\!\left(\frac{(1-s)\pi}{2n}\right)}$$
+
+Multiplying the integrand by $L$ slows the pen down so that in 1 unit of time it travels exactly $L$, locking the outer circumradius at 1. Sanity checks:
+
+* **$s = 0$:** $L = \frac{\sin(\pi/n)}{\cos(\pi/(2n))} = 2\sin\!\left(\frac{\pi}{2n}\right)$ — the side length of a regular $2n$-gon with circumradius 1. ✓
+* **$s = 1$:** the inner-valley turn is zero, so pairs of edges merge. $L = \sin(\pi/n)$, and the merged edge length is $2L = 2\sin(\pi/n)$ — the side length of a regular $n$-gon with circumradius 1. ✓
+* **$s = 2, n = 5$:** $L = \frac{\sin(36°)}{\cos(18°)} = \frac{1}{\varphi}$ — the edge length of a pentagram inscribed in a unit circle. ✓
+
+That gives us the full integral at the top of the page.
+
+### 7. Sharpness ($\theta$)
 
 Just like in the $n$-gon, $\theta$ controls how abruptly each turn happens. A low $\theta$ smears the turn across a wide interval of time, resulting in rounded, balloon-like outer points and smooth inner valleys. A high $\theta$ forces the sigmoids to behave like instant step functions, producing infinitely sharp corners.

@@ -19,7 +19,7 @@
 
 <header>
   <div class="hero-equation">
-    $$z(X) = \int_0^X e^{\left( i \frac{\pi}{n} \sum_{k=1}^{2n} \frac{1 + (-1)^{k+1} s}{1 + e^{-(x-k)\theta}} \right)} dx$$
+    $$z(X) = \int_0^X \frac{\sin(\pi/n)}{\cos\!\left(\frac{(1-s)\pi}{2n}\right)} e^{\left( i \frac{\pi}{n} \sum_{k=1}^{2n} \frac{1 + (-1)^{k+1} s}{1 + e^{-(x-k)\theta}} \right)} dx$$
   </div>
   <p>↑ Graph that from $X = 0$ to $X = 2n$ and you get an $n$-pointed star. <br>
     $s$ controls the star-ness. $\theta$ controls how sharp the corners are.
@@ -44,6 +44,12 @@
       <div class="slider-group">
         <label><span>$\theta$ (Sharpness)</span> <span id="theta-val">15</span></label>
         <input type="range" id="theta-slider" min="0" max="1" step="0.001" value="0.531">
+      </div>
+      <div class="toggle-group">
+        <label>
+          <input type="checkbox" id="radius-toggle" checked>
+          Constant Size
+        </label>
       </div>
       <button type="button" id="trace-btn" class="trace-btn">Trace</button>
     </div>
