@@ -6,16 +6,13 @@ const sVal = document.getElementById("s-val");
 const thetaVal = document.getElementById("theta-val");
 const traceBtn = document.getElementById("trace-btn");
 
-const DX = 0.01;
-
 function draw() {
   const n = parseInt(nSlider.value);
   const s = parseFloat(sSlider.value);
-  const tSlider = parseFloat(thetaSlider.value);
-  const theta = 500 * Math.pow(tSlider, 3);
+  const theta = sliderToTheta(parseFloat(thetaSlider.value));
   nVal.textContent = n;
   sVal.textContent = s.toFixed(2);
-  thetaVal.textContent = theta < 10 ? theta.toFixed(2) : theta.toFixed(1);
+  thetaVal.textContent = formatTheta(theta);
 
   const points = computeStarPath(n, theta, s, DX, 1);
   renderPlot(points, DX);

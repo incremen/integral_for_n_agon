@@ -5,15 +5,12 @@ const nVal = document.getElementById("n-val");
 const thetaVal = document.getElementById("theta-val");
 const traceBtn = document.getElementById("trace-btn");
 
-const DX = 0.01;
-
 function draw() {
   const n = parseInt(nSlider.value);
-  const s = parseFloat(thetaSlider.value);
-  const theta = 500 * Math.pow(s, 3);
+  const theta = sliderToTheta(parseFloat(thetaSlider.value));
   const constantRadius = radiusToggle.checked;
   nVal.textContent = n;
-  thetaVal.textContent = theta < 10 ? theta.toFixed(2) : theta.toFixed(1);
+  thetaVal.textContent = formatTheta(theta);
 
   const speedScale = constantRadius ? 2 * Math.sin(Math.PI / n) : 1;
   const points = computeIntegralPath(n, theta, DX, speedScale);

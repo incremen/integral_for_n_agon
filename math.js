@@ -1,3 +1,13 @@
+const DX = 0.01;
+
+function sliderToTheta(s) {
+  return 500 * Math.pow(s, 3);
+}
+
+function formatTheta(theta) {
+  return theta < 10 ? theta.toFixed(2) : theta.toFixed(1);
+}
+
 function sigmoid(z) {
   return 1 / (1 + Math.exp(-z));
 }
