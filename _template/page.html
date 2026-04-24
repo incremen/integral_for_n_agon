@@ -1,12 +1,26 @@
+<!--
+  Starter page for a new interactive function.
+
+  To adapt:
+    1. Copy to <name>.html in the repo root.
+    2. Update <title> and the <header> blurb + hero equation.
+    3. Add/remove slider-group blocks to match the sliders your function needs.
+       Each slider needs matching `id="..."` and `<span id="...-val">` targets
+       referenced by the config in <name>.js.
+    4. Point the zero-md <src>s at your content/<name>_explanation.md
+       and content/<name>_proof.md (both optional).
+    5. Create js/<name>.js calling createApp({...}).
+    6. Swap the final <script src="js/<name>.js"> to match.
+-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="color-scheme" content="light">
-  <title>The Integral n-star</title>
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
-  <link rel="stylesheet" href="css/styles.css">
+  <title>The Integral ???</title>
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="stylesheet" href="../css/styles.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
@@ -19,11 +33,9 @@
 
 <header>
   <div class="hero-equation">
-    $$z(X) = \frac{\sin(\pi/n)}{\cos\!\left(\frac{(1-s)\pi}{2n}\right)} \int_0^X e^{\left( i \frac{\pi}{n} \sum_{k=1}^{2n} \frac{1 + (-1)^{k+1} s}{1 + e^{-(x-k)\theta}} \right)} dx$$
+    $$z(x) = \text{your function here}$$
   </div>
-  <p>↑ Graph that from $X = 0$ to $X = 2n$ and you get an $n$-pointed star. <br>
-    $s$ controls the star-ness. $\theta$ controls how sharp the corners are.
-  </p>
+  <p>↑ One-line description of what the graph shows.</p>
 </header>
 
 <main class="app">
@@ -33,18 +45,14 @@
     </div>
     <div class="card controls-card">
       <h2>Controls</h2>
+
       <div class="slider-group">
-        <label><span>n (Points)</span> <span id="n-val">5</span></label>
+        <label><span>n</span> <span id="n-val">5</span></label>
         <input type="range" id="n-slider" min="1" max="20" step="1" value="5">
       </div>
-      <div class="slider-group">
-        <label><span>s (Star-ness)</span> <span id="s-val">2</span></label>
-        <input type="range" id="s-slider" min="0" max="20" step="0.01" value="2">
-      </div>
-      <div class="slider-group">
-        <label><span>$\theta$ (Sharpness)</span> <span id="theta-val">15</span></label>
-        <input type="range" id="theta-slider" min="0" max="1" step="0.001" value="0.531">
-      </div>
+
+      <!-- Duplicate slider-group blocks for additional parameters. -->
+
       <div class="toggle-group">
         <label>
           <input type="checkbox" id="radius-toggle" checked>
@@ -57,12 +65,12 @@
 
   <p class="credit">
     <span>
-      <a href="index.html">← Back to the n-gon</a>
+      <a href="../index.html">← Back to the n-gon</a>
     </span>
   </p>
 
   <section class="explanation-panel">
-    <zero-md src="content/star_explanation.md">
+    <zero-md src="../content/<name>_explanation.md">
       <template data-merge="append">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@5/github-markdown-light.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
@@ -79,7 +87,7 @@
   <details class="geometry-details" open>
     <summary>Geometry derivation</summary>
     <div class="geometry-panel">
-      <zero-md src="content/star_proof.md">
+      <zero-md src="../content/<name>_proof.md">
         <template data-merge="append">
           <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@5/github-markdown-light.css">
           <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
@@ -101,10 +109,9 @@
   </details>
 </main>
 
-
-<script src="js/math.js"></script>
-<script src="js/render.js"></script>
-<script src="js/shared.js"></script>
-<script src="js/star.js"></script>
+<script src="../js/math.js"></script>
+<script src="../js/render.js"></script>
+<script src="../js/shared.js"></script>
+<script src="../js/<name>.js"></script>
 </body>
 </html>

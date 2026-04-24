@@ -1,25 +1,16 @@
-const nSlider = document.getElementById("n-slider");
-const thetaSlider = document.getElementById("theta-slider");
-const radiusToggle = document.getElementById("radius-toggle");
-const nVal = document.getElementById("n-val");
-const thetaVal = document.getElementById("theta-val");
-const traceBtn = document.getElementById("trace-btn");
-
-function draw() {
-  const n = parseInt(nSlider.value);
-  const theta = sliderToTheta(parseFloat(thetaSlider.value));
-  const constantRadius = radiusToggle.checked;
-  nVal.textContent = n;
-  thetaVal.textContent = formatTheta(theta);
-
-  const scale = constantRadius ? 2 * Math.sin(Math.PI / n) : 1;
-  const points = scalePath(computeIntegralPath(n, theta, DX), scale);
-  renderPlot(points, DX);
-}
-
-nSlider.addEventListener("input", draw);
-thetaSlider.addEventListener("input", draw);
-radiusToggle.addEventListener("change", draw);
-traceBtn.addEventListener("click", startTrace);
-
-draw();
+createApp({
+  sliders: [
+    { id: "n-slider", valueId: "n-val", parse: parseInt10, format: (v) => v },
+    {
+      id: "theta-slider",
+      valueId: "theta-val",
+      parse: (el) => sliderToTheta(parseFloat(el.value)),
+      format: formatTheta,
+    },
+    { id: "radius-toggle", parse: parseChecked, format: () => "", event: "change" },
+  ],
+  computePath: ({ "n-slider": n, "theta-slider": theta }) =>
+    computeIntegralPath(n, theta, DX),
+  computeScale: ({ "n-slider": n, "radius-toggle": constantSize }) =>
+    constantSize ? 2 * Math.sin(Math.PI / n) : 1,
+});
