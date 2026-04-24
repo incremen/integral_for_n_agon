@@ -194,6 +194,49 @@ input[type="range"]::-webkit-slider-thumb {
   cursor: pointer;
 }
 
+/* Geometry derivation (<details>) */
+
+.geometry-details > summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: #fff;
+  border: 1px solid #d2d2d7;
+  border-radius: 999px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #1d1d1f;
+  cursor: pointer;
+  user-select: none;
+  list-style: none;
+}
+
+.geometry-details > summary::-webkit-details-marker {
+  display: none;
+}
+
+.geometry-details > summary::before {
+  content: "▸";
+  font-size: 0.8rem;
+  color: #6e6e73;
+  transition: transform 0.15s ease;
+}
+
+.geometry-details[open] > summary::before {
+  transform: rotate(90deg);
+}
+
+.geometry-panel {
+  margin-top: 16px;
+  background: #fff;
+  border: 1px solid #d2d2d7;
+  border-radius: 12px;
+  padding: 24px 32px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
 /* Explanation panel (zero-md) */
 
 .explanation-panel {
@@ -271,5 +314,9 @@ input[type="range"]::-webkit-slider-thumb {
 
   .explanation-panel {
     padding: 20px;
+  }
+
+  .geometry-panel {
+    padding: 16px;
   }
 }
