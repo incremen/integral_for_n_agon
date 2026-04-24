@@ -1,13 +1,13 @@
 # Derivation for the Star
 **Goal:** Find the edge length $L$ for a star with an outer circumradius of $1$.
 
-![Step 1](./proof_diagrams/star_step1.png)
+![Step 1](../proof_diagrams/star_step1.png)
 
 * Let $O$ be the center. Let $A$ and $B$ be adjacent **outer points**. The distance to the outer points is $OA = OB = 1$.
 * Just like the $n$-gon, the central angle between these outer points is $\angle AOB = \frac{2\pi}{n}$.
 * Let $V$ be the **inner valley** point located between $A$ and $B$. The line segment $OV$ bisects the central angle perfectly.
 
-![Step 2](./proof_diagrams/star_step2.png)
+![Step 2](../proof_diagrams/star_step2.png)
 
 * Look at the triangle $OAV$.
     * The side $OA = 1$.
@@ -18,7 +18,7 @@
 * The line $OV$ bisects this interior angle, meaning the angle inside our triangle $OAV$ is exactly half of that:
     $$\angle AVO = \frac{\pi - \gamma}{2} = \frac{\pi}{2} - \frac{\gamma}{2}$$
 
-![Step 3](./proof_diagrams/star_step3.png)
+![Step 3](../proof_diagrams/star_step3.png)
 
 * Apply the **Law of Sines** to triangle $OAV$:
     $$\frac{AV}{\sin(\angle AOV)} = \frac{OA}{\sin(\angle AVO)}$$
