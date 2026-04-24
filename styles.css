@@ -196,17 +196,21 @@ input[type="range"]::-webkit-slider-thumb {
 
 /* Geometry derivation (<details>) */
 
-.geometry-details > summary {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 16px;
+.geometry-details {
   background: #fff;
   border: 1px solid #d2d2d7;
-  border-radius: 999px;
+  border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-  font-size: 0.95rem;
-  font-weight: 500;
+  overflow: hidden;
+}
+
+.geometry-details > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  font-size: 1rem;
+  font-weight: 600;
   color: #1d1d1f;
   cursor: pointer;
   user-select: none;
@@ -217,24 +221,25 @@ input[type="range"]::-webkit-slider-thumb {
   display: none;
 }
 
-.geometry-details > summary::before {
-  content: "▸";
-  font-size: 0.8rem;
+.geometry-details > summary::after {
+  content: "▾";
+  font-size: 3rem;
+  line-height: 1;
   color: #6e6e73;
   transition: transform 0.15s ease;
 }
 
-.geometry-details[open] > summary::before {
-  transform: rotate(90deg);
+.geometry-details[open] > summary::after {
+  transform: rotate(180deg);
+}
+
+.geometry-details > summary:hover {
+  background: #f5f5f7;
 }
 
 .geometry-panel {
-  margin-top: 16px;
-  background: #fff;
-  border: 1px solid #d2d2d7;
-  border-radius: 12px;
+  border-top: 1px solid #e5e5ea;
   padding: 24px 32px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
 /* Explanation panel (zero-md) */

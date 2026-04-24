@@ -69,8 +69,23 @@
     </span>
   </p>
 
-  <details class="geometry-details">
-    <summary>Show the geometry derivation</summary>
+  <section class="explanation-panel">
+    <zero-md src="explanation.md">
+      <template data-merge="append">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@5/github-markdown-light.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+        <style>
+          .markdown-body {
+            background: transparent;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+          }
+        </style>
+      </template>
+    </zero-md>
+  </section>
+
+  <details class="geometry-details" open>
+    <summary>Geometry derivation</summary>
     <div class="geometry-panel">
       <zero-md src="ngon_proof.md">
         <template data-merge="append">
@@ -92,21 +107,6 @@
       </zero-md>
     </div>
   </details>
-
-  <section class="explanation-panel">
-    <zero-md src="explanation.md">
-      <template data-merge="append">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@5/github-markdown-light.css">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
-        <style>
-          .markdown-body {
-            background: transparent;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-          }
-        </style>
-      </template>
-    </zero-md>
-  </section>
 </main>
 
 
