@@ -31,7 +31,7 @@ Each of those turns is one sigmoid in the sum. The $c_k$ in front of each sigmoi
 | turn left $90°$ | back to the edge | $+\tfrac{\pi}{2}$ |
 | turn left $\tfrac{2\pi}{n}$ | polygon corner | $+\tfrac{2\pi}{n}$ |
 
-Summing those angles gives $\tfrac{\pi}{2} - \tfrac{\pi}{2} - \tfrac{\pi}{2} + \tfrac{\pi}{2} + \tfrac{2\pi}{n} = \tfrac{2\pi}{n}$. The four tooth turns cancel exactly — this is the **zero-net-turn** part. Only the macroscopic $\tfrac{2\pi}{n}$ corner contributes to the heading change across one full tooth block.
+Summing those angles gives $\tfrac{\pi}{2} - \tfrac{\pi}{2} - \tfrac{\pi}{2} + \tfrac{\pi}{2} + \tfrac{2\pi}{n} = \tfrac{2\pi}{n}$. The four tooth turns cancel exactly — this is the **zero-net-turn** part. Only the $\tfrac{2\pi}{n}$ corner contributes to the heading change across one full tooth block.
 
 Closure check: after $n$ repetitions the car has accumulated $n \cdot \tfrac{2\pi}{n} = 2\pi$, a full rotation. The path closes for *any* choice of $h$, $w$, $g$ — the geometry of the tooth can't break the loop.
 
@@ -71,7 +71,7 @@ Each value of $r$ selects a different block; each $t_i$ selects a step within th
 
 ### 6. Fixing the size
 
-The pen moves at speed 1, so the raw integral's perimeter is $n \cdot L = n(g + 2h + w)$ — i.e. each macro edge of the polygon has length $L$, not $1$. To restore the $n$-gon sizing convention (circumradius of the underlying polygon $= 1$), we need each macro edge to have length $2\sin(\pi/n)$ instead of length $L$.
+The pen moves at speed 1, so the raw integral's perimeter is $n \cdot L = n(g + 2h + w)$ — i.e. each edge of the polygon has length $L$, not $1$. To restore the $n$-gon sizing convention (circumradius of the underlying polygon $= 1$), we need each edge to have length $2\sin(\pi/n)$ instead of length $L$.
 
 Since the integral is linear, we just pull a scalar out front:
 
