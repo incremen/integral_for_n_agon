@@ -55,18 +55,20 @@ function computeStarPath(n, theta, sharpness, dx) {
 }
 
 function computeGearPath(n, theta, h, w, g, dx) {
-  // Four sigmoid turns per tooth form a "zero-net-turn" square bump:
-  //   +pi/2, -pi/2, -pi/2, (pi/2 + 2pi/n)
-  // The last term folds the macroscopic polygon corner into the final turn,
-  // so the n teeth close into a gear.
+  // Five sigmoid turns per tooth:
+  //   +pi/2, -pi/2, -pi/2, +pi/2     -> zero-net-turn square tooth
+  //   +2pi/n                         -> macro polygon corner, fired AFTER
+  //                                    the second half of the gap so the
+  //                                    tooth is centered on the edge.
   const points = [];
   let real = 0;
   let imag = 0;
-  const t1 = g;
+  const t1 = g / 2;
   const t2 = t1 + h;
   const t3 = t2 + w;
   const t4 = t3 + h;
-  const L = t4;
+  const t5 = t4 + g / 2;
+  const L = t5;
   const totalTime = n * L;
   const macroTurn = (2 * Math.PI) / n;
 
@@ -74,19 +76,19 @@ function computeGearPath(n, theta, h, w, g, dx) {
     let phase = 0;
     for (let r = 0; r < n; r++) {
       const xAdj = x - r * L;
-      // Once a tooth has fully fired, its four sigmoids sum to exactly
-      // macroTurn (the zero-net-turn cancels), so we can add that constant
-      // instead of re-computing four saturated sigmoids.
+      // Once a tooth has fully fired, its five sigmoids sum to macroTurn
+      // (square bump cancels to 0, macro turn adds 2pi/n).
       const margin = 10 / theta;
       if (xAdj < -margin) continue;
-      if (xAdj > t4 + margin) {
+      if (xAdj > t5 + margin) {
         phase += macroTurn;
         continue;
       }
       phase += (Math.PI / 2) * sigmoid(theta * (xAdj - t1));
       phase += (-Math.PI / 2) * sigmoid(theta * (xAdj - t2));
       phase += (-Math.PI / 2) * sigmoid(theta * (xAdj - t3));
-      phase += (Math.PI / 2 + macroTurn) * sigmoid(theta * (xAdj - t4));
+      phase += (Math.PI / 2) * sigmoid(theta * (xAdj - t4));
+      phase += macroTurn * sigmoid(theta * (xAdj - t5));
     }
     real += Math.cos(phase) * dx;
     imag += Math.sin(phase) * dx;
