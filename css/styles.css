@@ -34,6 +34,10 @@ header p {
   overflow-x: auto;
 }
 
+.hero-equation--compact {
+  font-size: 1.6rem;
+}
+
 .app {
   display: flex;
   flex-direction: column;

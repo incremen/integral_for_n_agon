@@ -1,46 +1,82 @@
 # The Integral Gear
 
-This is a variation on the [$n$-gon](../index.html) integral. Same car-with-a-steering-wheel setup, but now each side of the polygon has a square bump (a tooth) rammed into it.
+This builds on the [$n$-gon](../index.html). We're still adding shifted sigmoids in the exponent of a complex exponential, but now each sigmoid fires a specific turn angle — not a uniform $\tfrac{2\pi}{n}$ — so we can draw a polygon whose edges have square teeth sticking out.
 
-### The Gear: Centering the Tooth
+### 1. What shape do we want to trace
 
-To draw a mechanical gear, we use the **"Zero-Net-Turn"** trick for the teeth, but we must ensure the teeth are symmetric. If a tooth sits at the very end of a polygon's edge, the shape looks like an asymmetrical ratchet or saw-blade.
+A gear is an $n$-sided polygon with a square bump (a "tooth") in the middle of each edge. If the car drove clockwise-er, sorry, counterclockwise around the shape, starting along one edge, it would:
 
-To make a true gear, the tooth must be centered on the edge. The sequence for a single side is:
+1. drive straight for a bit (half of the gap between teeth),
+2. turn **left** $90°$ to start climbing the tooth,
+3. drive up,
+4. turn **right** $90°$ to go across the top of the tooth,
+5. drive across,
+6. turn **right** $90°$ to come back down,
+7. drive down,
+8. turn **left** $90°$ to rejoin the edge,
+9. drive straight for a bit (the other half of the gap),
+10. turn **left** $\tfrac{2\pi}{n}$ to start the next edge of the polygon.
 
-1. Drive for half the gap ($g/2$).
-2. Draw the square tooth (four $90°$ turns that cancel each other out).
-3. Drive for the second half of the gap ($g/2$).
-4. Turn for the macroscopic corner of the polygon ($\frac{2\pi}{n}$).
+Then repeat that block $n$ times and the path closes.
 
-Here is the explicit integral. Notice that the macro turn is now separated into its own step ($t_5$).
+### 2. Turning that into sigmoid coefficients
+
+Each of those turns is one sigmoid in the sum. The $c_k$ in front of each sigmoid is the exact angle of that turn (positive = left, negative = right):
+
+| Step | Action | Coefficient |
+|---|---|---|
+| turn left $90°$ | going up the tooth | $+\tfrac{\pi}{2}$ |
+| turn right $90°$ | crossing the top | $-\tfrac{\pi}{2}$ |
+| turn right $90°$ | going down | $-\tfrac{\pi}{2}$ |
+| turn left $90°$ | back to the edge | $+\tfrac{\pi}{2}$ |
+| turn left $\tfrac{2\pi}{n}$ | polygon corner | $+\tfrac{2\pi}{n}$ |
+
+Summing those angles gives $\tfrac{\pi}{2} - \tfrac{\pi}{2} - \tfrac{\pi}{2} + \tfrac{\pi}{2} + \tfrac{2\pi}{n} = \tfrac{2\pi}{n}$. The four tooth turns cancel exactly — this is the **zero-net-turn** part. Only the macroscopic $\tfrac{2\pi}{n}$ corner contributes to the heading change across one full tooth block.
+
+Closure check: after $n$ repetitions the car has accumulated $n \cdot \tfrac{2\pi}{n} = 2\pi$, a full rotation. The path closes for *any* choice of $h$, $w$, $g$ — the geometry of the tooth can't break the loop.
+
+### 3. When each sigmoid fires
+
+A sigmoid $\sigma(\theta(x - t))$ flips from $0$ to $1$ right around $x = t$. We want each turn to happen when the car has driven far enough along its current heading to have covered the right distance. Because the pen moves at speed 1, "distance" and "time" are the same number.
+
+Within one tooth block, call the start of the block $x = 0$:
+
+* **$t_1 = g/2$** — the car has driven half the gap. Time to start climbing.
+* **$t_2 = t_1 + h$** — climbed the full height $h$. Time to go across.
+* **$t_3 = t_2 + w$** — crossed the top for width $w$. Time to come down.
+* **$t_4 = t_3 + h$** — back at baseline after descending $h$. Rejoin the edge.
+* **$t_5 = t_4 + g/2$** — drove the second half of the gap. Time to make the polygon corner.
+
+The full block length is $L = t_5 = g + 2h + w$.
+
+**Why split the gap in half?** If we put the whole gap *before* the tooth and fired the polygon corner right at the end of the tooth, the tooth would sit at the trailing edge of each side and the gear would look like a ratchet (every tooth leaning in the same direction). Splitting the gap centers each tooth on its edge.
+
+### 4. Stacking $n$ blocks
+
+The sigmoid pattern for one tooth block has to repeat $n$ times — once per edge of the underlying polygon. Instead of listing out $5n$ sigmoids explicitly, we offset each repetition by $r \cdot L$ for $r = 0, 1, \dots, n{-}1$:
 
 $$
 z(X) = \int_0^X \exp\!\left( i \sum_{r=0}^{n-1} \left[
 \begin{aligned}
-  & +\tfrac{\pi}{2}\sigma(x - t_1) \\
-  & -\tfrac{\pi}{2}\sigma(x - t_2) \\
-  & -\tfrac{\pi}{2}\sigma(x - t_3) \\
-  & +\tfrac{\pi}{2}\sigma(x - t_4) \\
-  & +\tfrac{2\pi}{n}\sigma(x - t_5)
+  & +\tfrac{\pi}{2}\sigma(x - rL - t_1) \\
+  & -\tfrac{\pi}{2}\sigma(x - rL - t_2) \\
+  & -\tfrac{\pi}{2}\sigma(x - rL - t_3) \\
+  & +\tfrac{\pi}{2}\sigma(x - rL - t_4) \\
+  & +\tfrac{2\pi}{n}\sigma(x - rL - t_5)
 \end{aligned}
 \right] \right) dx
 $$
 
-The timing variables ($t$) accumulate the physical distances:
+Each value of $r$ selects a different block; each $t_i$ selects a step within that block. Together they schedule all $5n$ turns across the interval $[0, nL]$.
 
-* $t_1 = g/2$
-* $t_2 = t_1 + h$
-* $t_3 = t_2 + w$
-* $t_4 = t_3 + h$
-* $t_5 = t_4 + g/2$
+### 5. What the sliders do
 
-Inside each tooth's $r$-th repetition, $x$ is offset by $r \cdot L$ (where $L = t_5$ is one full tooth period), so every tooth fires its five sigmoids one after the next.
+* **$n$** — teeth (also: sides of the underlying polygon). Sets the macroscopic turn $\tfrac{2\pi}{n}$.
+* **$h$** — tooth height. The distance the car climbs/descends on the tooth's sides.
+* **$w$** — tooth width. The distance across the top of the tooth.
+* **$g$** — gap. The flat stretch between teeth, split in half on either side so teeth stay centered.
+* **$\theta$** — sharpness. Low $\theta$ smears each sigmoid over a wide time window, rounding every corner. High $\theta$ makes the sigmoids approximate step functions, locking the turns into crisp right angles.
 
-### What the sliders do
+### 6. Fixing the size
 
-* **$n$** — number of teeth. Also sets the macroscopic turn $\tfrac{2\pi}{n}$.
-* **$h$** — tooth height: how far the tooth pokes out.
-* **$w$** — tooth width: how wide the top of the tooth is.
-* **$g$** — gap: flat section between teeth (split evenly on either side of the tooth).
-* **$\theta$** — sharpness. Low $\theta$ rounds every corner; high $\theta$ locks them to crisp right-angles.
+The pen still moves at speed 1, so the raw integral's perimeter is $n \cdot L = n(g + 2h + w)$. That grows without bound as the sliders move. To keep the gear stable on screen, the "Constant Size" checkbox rescales the whole path by $\tfrac{2\sin(\pi/n)}{L}$ — the same $2\sin(\pi/n)$ trick from the $n$-gon, divided by $L$ to cancel the per-block distance. This keeps the circumradius of the *underlying* polygon (ignoring the teeth) fixed at $1$; the teeth poke out a bit beyond it.
