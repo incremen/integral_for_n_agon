@@ -56,7 +56,7 @@ The full block length is $L = t_5 = g + 2h + w$.
 The sigmoid pattern for one tooth block has to repeat $n$ times — once per edge of the underlying polygon. Instead of listing out $5n$ sigmoids explicitly, we offset each repetition by $r \cdot L$ for $r = 0, 1, \dots, n{-}1$:
 
 $$
-z(X) = \int_0^X \exp\!\left( i \sum_{r=0}^{n-1} \left[
+z(X) = \frac{2\sin(\pi/n)}{g + 2h + w} \int_0^X \exp\!\left( i \sum_{r=0}^{n-1} \left[
 \begin{aligned}
   & +\tfrac{\pi}{2}\sigma(x - rL - t_1) \\
   & -\tfrac{\pi}{2}\sigma(x - rL - t_2) \\
@@ -71,4 +71,10 @@ Each value of $r$ selects a different block; each $t_i$ selects a step within th
 
 ### 6. Fixing the size
 
-The pen still moves at speed 1, so the raw integral's perimeter is $n \cdot L = n(g + 2h + w)$. That grows without bound as the sliders move. To keep the gear stable on screen, the "Constant Size" checkbox rescales the whole path by $\tfrac{2\sin(\pi/n)}{L}$ — the same $2\sin(\pi/n)$ trick from the $n$-gon, divided by $L$ to cancel the per-block distance. This keeps the circumradius of the *underlying* polygon (ignoring the teeth) fixed at $1$; the teeth poke out a bit beyond it.
+The pen moves at speed 1, so the raw integral's perimeter is $n \cdot L = n(g + 2h + w)$ — i.e. each macro edge of the polygon has length $L$, not $1$. To restore the $n$-gon sizing convention (circumradius of the underlying polygon $= 1$), we need each macro edge to have length $2\sin(\pi/n)$ instead of length $L$.
+
+Since the integral is linear, we just pull a scalar out front:
+
+$$\frac{2\sin(\pi/n)}{g + 2h + w}$$
+
+That's the constant at the beginning of the integral. Turning off "Constant Size" drops it and reverts to the raw speed-1 path. The teeth still poke out beyond the circumradius — this only locks the underlying polygon to $R = 1$.
