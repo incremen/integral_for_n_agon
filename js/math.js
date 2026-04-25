@@ -54,6 +54,48 @@ function computeStarPath(n, theta, sharpness, dx) {
   return points;
 }
 
+function computeGearPath(n, theta, h, w, g, dx) {
+  // Four sigmoid turns per tooth form a "zero-net-turn" square bump:
+  //   +pi/2, -pi/2, -pi/2, (pi/2 + 2pi/n)
+  // The last term folds the macroscopic polygon corner into the final turn,
+  // so the n teeth close into a gear.
+  const points = [];
+  let real = 0;
+  let imag = 0;
+  const t1 = g;
+  const t2 = t1 + h;
+  const t3 = t2 + w;
+  const t4 = t3 + h;
+  const L = t4;
+  const totalTime = n * L;
+  const macroTurn = (2 * Math.PI) / n;
+
+  for (let x = dx / 2; x <= totalTime; x += dx) {
+    let phase = 0;
+    for (let r = 0; r < n; r++) {
+      const xAdj = x - r * L;
+      // Once a tooth has fully fired, its four sigmoids sum to exactly
+      // macroTurn (the zero-net-turn cancels), so we can add that constant
+      // instead of re-computing four saturated sigmoids.
+      const margin = 10 / theta;
+      if (xAdj < -margin) continue;
+      if (xAdj > t4 + margin) {
+        phase += macroTurn;
+        continue;
+      }
+      phase += (Math.PI / 2) * sigmoid(theta * (xAdj - t1));
+      phase += (-Math.PI / 2) * sigmoid(theta * (xAdj - t2));
+      phase += (-Math.PI / 2) * sigmoid(theta * (xAdj - t3));
+      phase += (Math.PI / 2 + macroTurn) * sigmoid(theta * (xAdj - t4));
+    }
+    real += Math.cos(phase) * dx;
+    imag += Math.sin(phase) * dx;
+    points.push({ x: real, y: imag });
+  }
+
+  return points;
+}
+
 function scalePath(points, scale) {
   if (scale === 1) return points;
   return points.map((p) => ({ x: p.x * scale, y: p.y * scale }));
