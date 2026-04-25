@@ -69,7 +69,7 @@ $$
 
 Each value of $r$ selects a different block; each $t_i$ selects a step within that block. Together they schedule all $5n$ turns across the interval $[0, nL]$.
 
-### 6. Fixing the size
+### 5. Fixing the size
 
 The pen moves at speed 1, so the raw integral's perimeter is $n \cdot L = n(g + 2h + w)$ — i.e. each edge of the polygon has length $L$, not $1$. To restore the $n$-gon sizing convention (circumradius of the underlying polygon $= 1$), we need each edge to have length $2\sin(\pi/n)$ instead of length $L$.
 
