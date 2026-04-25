@@ -2,7 +2,7 @@
 
 This builds on the [$n$-gon](../index.html). We're still adding shifted sigmoids in the exponent of a complex exponential, but now each sigmoid fires a specific turn angle — not a uniform $\tfrac{2\pi}{n}$ — so we can draw a polygon whose edges have square teeth sticking out.
 
-### 1. What shape do we want to trace
+### 1. What shape we wanna trace
 
 A gear is an $n$-sided polygon with a square bump (a "tooth") in the middle of each edge. If the car drove clockwise-er, sorry, counterclockwise around the shape, starting along one edge, it would:
 
@@ -19,7 +19,7 @@ A gear is an $n$-sided polygon with a square bump (a "tooth") in the middle of e
 
 Then repeat that block $n$ times and the path closes.
 
-### 2. Turning that into sigmoid coefficients
+### 2. Turning it into sigmoid coefficients
 
 Each of those turns is one sigmoid in the sum. The $c_k$ in front of each sigmoid is the exact angle of that turn (positive = left, negative = right):
 
@@ -68,14 +68,6 @@ z(X) = \int_0^X \exp\!\left( i \sum_{r=0}^{n-1} \left[
 $$
 
 Each value of $r$ selects a different block; each $t_i$ selects a step within that block. Together they schedule all $5n$ turns across the interval $[0, nL]$.
-
-### 5. What the sliders do
-
-* **$n$** — teeth (also: sides of the underlying polygon). Sets the macroscopic turn $\tfrac{2\pi}{n}$.
-* **$h$** — tooth height. The distance the car climbs/descends on the tooth's sides.
-* **$w$** — tooth width. The distance across the top of the tooth.
-* **$g$** — gap. The flat stretch between teeth, split in half on either side so teeth stay centered.
-* **$\theta$** — sharpness. Low $\theta$ smears each sigmoid over a wide time window, rounding every corner. High $\theta$ makes the sigmoids approximate step functions, locking the turns into crisp right angles.
 
 ### 6. Fixing the size
 
